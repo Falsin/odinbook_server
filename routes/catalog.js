@@ -6,12 +6,6 @@ const upload = multer();
 const passport = require("../authentication");
 const userController = require("../controllers/userController");
 
-/* router.post("/", upload.single("photo"), (req, res, next) => {
-  //console.log(req)
-
-  res.json('hello!')
-}) */
-
 router.post("/", 
   upload.single("photo"), 
   userController.sign_up_post, 
@@ -23,9 +17,17 @@ router.post("/",
 
 router.get("/", 
   (req, res, next) => {
-    res.json(createUserObject(req.user));
+    res.json(req.user ? createUserObject(req.user) : null)
   }
 )
+
+router.get("/logout", (req, res, next) => {
+  console.log(req)
+  console.log("hello12345!")
+  req.logout(() => {
+    res.redirect("/")
+  });
+})
 
 function createUserObject(obj) {
   const { 
