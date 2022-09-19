@@ -16,7 +16,7 @@ passport.use(new LocalStrategy((username, password, cb) => {
 
     bcrypt.compare(password, user.password, (err, result) => {
       if (result) {
-        return cb(null, user)
+        return cb(null, user);
       } else {
         return cb(null, false, {message: 'Incorrect password.'})
       }
