@@ -17,8 +17,8 @@ const router  = require('./routes/catalog');
 var app = express();
 
 // view engine setup
-/* app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade'); */
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 var mongoDB = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox.jnrzi.mongodb.net/odinbook?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
@@ -70,7 +70,8 @@ app.use(function(err, req, res, next) {
   console.log(req.body) */
 /*   res.locals.message = err.message;
   console.log(res) */
-  res.json("error")
+  console.log(err.message)
+  res.json("error1")
 });
 /* app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -80,6 +81,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-}); */
+}) */
 
 module.exports = app;
