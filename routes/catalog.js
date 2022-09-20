@@ -10,24 +10,20 @@ router.post("/",
   upload.single("photo"), 
   userController.sign_up_post, 
   passport.authenticate('local', {failureRedirect: '/'}),
-  (req, res, next) => {
-    res.json(createUserObject(req.user));
-  }
+  (req, res, next) => res.json(createUserObject(req.user))
 )
 
-router.get("/", 
-  (req, res, next) => {
-    res.json(req.user ? createUserObject(req.user) : null)
-  }
+router.get("/", (req, res, next) => {
+  res.json(req.user ? createUserObject(req.user) : null)
+});
+
+router.post("/login", 
+  userController.login,
+  passport.authenticate('local', {failureRedirect: '/'}),
+  (req, res, next) => res.json(createUserObject(req.user))
 )
 
-router.get("/logout", (req, res, next) => {
-  console.log(req)
-  console.log("hello12345!")
-  req.logout(() => {
-    res.redirect("/")
-  });
-})
+router.get("/logout", userController.logout)
 
 function createUserObject(obj) {
   const { 
