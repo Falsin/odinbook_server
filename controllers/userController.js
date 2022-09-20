@@ -38,3 +38,24 @@ exports.sign_up_post = [
     })
   }
 ]
+
+exports.login = [
+  body('username', 'Username must not be empty.').trim().isLength({ min: 1 }).escape(),
+  body('password', 'Password must not be empty.').trim().isLength({ min: 1 }).escape(),
+
+  (req, res, next) => {
+    const error = validationResult(req);
+    console.log(req.body)
+
+    if (!error.isEmpty()) {
+      return res.json(error.array())
+    } else {
+
+      next();
+    }
+  }
+]
+
+exports.logout = (req, res, next) => {
+  req.logout(() => res.redirect("/"));
+}
