@@ -45,7 +45,6 @@ exports.login = [
 
   (req, res, next) => {
     const error = validationResult(req);
-    console.log(req.body)
 
     if (!error.isEmpty()) {
       return res.json(error.array())
