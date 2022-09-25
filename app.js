@@ -35,6 +35,7 @@ app.use(cors({
     if (whitelist.includes(origin)) {
       callback(null, true);
     } else {
+      console.log(origin)
       callback(new Error('Not allowed by CORS'))
     }
   }
@@ -80,7 +81,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  console.log(req)
+  //console.log(req)
   res.status(err.status || 500);
   res.json(err.message);
   //res.render('error');
