@@ -27,8 +27,17 @@ mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+const whitelist = ["http://localhost:8080", "https://falsin.github.io"]
 app.use(cors({
-  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // allow session cookie from browser to pass through
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }));
 
 app.use(session({ 
