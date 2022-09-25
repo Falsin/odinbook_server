@@ -7,6 +7,7 @@ var cors = require("cors");
 var mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+const helmet = require("helmet");
 
 const passport = require("./authentication");
 const router  = require('./routes/catalog');
