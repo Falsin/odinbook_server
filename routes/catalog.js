@@ -33,7 +33,7 @@ router.get("/login/facebook",
   next()
 },
 
-passport.authenticate("facebook"));
+passportForFacebook.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: '/',
