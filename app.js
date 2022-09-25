@@ -32,10 +32,10 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // allow session cookie from browser to pass through
   origin: (origin, callback) => {
+    console.log(origin)
     if (whitelist.includes(origin)) {
       callback(null, true);
     } else {
-      console.log(origin)
       callback(new Error('Not allowed by CORS'))
     }
   }
