@@ -14,7 +14,11 @@ const passport = require("./authentication");
 const router  = require('./routes/catalog');
 //var usersRouter = require('./routes/users');
 
+const compression = require("compression");
+
 var app = express();
+
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -79,6 +83,8 @@ app.use(session({
     maxAge: 3000000,
   }
 }));
+
+app.use(compression());
 
 app.use(passport.initialize());
 app.use(passport.session());
