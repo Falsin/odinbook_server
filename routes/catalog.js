@@ -4,6 +4,7 @@ const multer  = require('multer');
 const upload = multer();
 
 const passport = require("../authentication");
+const passportForFacebook = require("../authentication_with_Facebook");
 const userController = require("../controllers/userController");
 
 router.post("/", 
@@ -23,7 +24,29 @@ router.post("/login",
   (req, res, next) => res.json(createUserObject(req.user))
 )
 
-router.get("/logout", userController.logout)
+router.get("/logout", userController.logout);
+
+router.get("/login/facebook", 
+(res, req, next) => {
+  console.log('hello!');
+  next()
+},
+
+passport.authenticate("facebook"));
+
+/* router.get('/login/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    console.log(req)
+    console.log('hello')
+    res.redirect("hello");
+  }); */
+
+router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
 
 function createUserObject(obj) {
   const { 

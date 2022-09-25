@@ -25,10 +25,44 @@ mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+const whitelist = ["https://localhost:8080", "https://www.facebook.com"]
+
+/* 
 app.use(cors({
-  origin: "http://localhost:8080",
+  origin: whitelist.indexof,
   credentials: true,
 }));
+*/
+/* app.use(cors({
+  origin: "http://localhost:8080",
+  credentials: true,
+})); */
+
+app.use(cors({
+  credentials: true,
+}));
+
+/* app.use(cors({
+  origin: function (origin, callback) {
+    console.log(origin)
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
+/* var  corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+} */
 
 app.use(session({ 
   secret: "cats", 
