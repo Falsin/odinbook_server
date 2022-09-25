@@ -44,7 +44,6 @@ exports.login = [
   body('password', 'Password must not be empty.').trim().isLength({ min: 1 }).escape(),
 
   (req, res, next) => {
-    console.log(req)
     const error = validationResult(req);
 
     if (!error.isEmpty()) {

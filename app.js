@@ -9,10 +9,7 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 
 const passport = require("./authentication");
-
-//var indexRouter = require('./routes/index');
 const router  = require('./routes/catalog');
-//var usersRouter = require('./routes/users');
 
 const compression = require("compression");
 
@@ -29,44 +26,9 @@ mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const whitelist = ["https://localhost:8080", "https://www.facebook.com"]
-
-/* 
-app.use(cors({
-  origin: whitelist.indexof,
-  credentials: true,
-}));
-*/
-/* app.use(cors({
-  origin: "http://localhost:8080",
-  credentials: true,
-})); */
-
 app.use(cors({
   credentials: true,
 }));
-
-/* app.use(cors({
-  origin: function (origin, callback) {
-    console.log(origin)
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-}));
-/* var  corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-} */
 
 app.use(session({ 
   secret: "cats", 
@@ -94,9 +56,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', indexRouter);
 app.use('/', router);
-//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -104,16 +64,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-
 app.use(function(err, req, res, next) {
-/*   console.log(req);
-  console.log(req.body) */
-/*   res.locals.message = err.message;
-  console.log(res) */
-  console.log(err.message)
-  res.json("error1")
-});
-/* app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -121,6 +72,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-}) */
+})
 
 module.exports = app;
