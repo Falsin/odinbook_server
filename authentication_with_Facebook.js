@@ -6,7 +6,7 @@ const FacebookStrategy = require('passport-facebook');
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: 'https://localhost:3000/oauth2/redirect/facebook',
+  callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   state: true
 }, function verify(accessToken, refreshToken, profile, cb) {
   db.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
