@@ -27,14 +27,14 @@ router.post("/login",
 
 router.get("/logout", userController.logout);
 
-router.get("/login/facebook", 
+router.get("/login/facebook/", 
 (res, req, next) => {
   console.log('hello!');
   next()
 },
 passportForFacebook.authenticate("facebook"));
 
-router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
+router.get('/oauth2/redirect/facebook/', passportForFacebook.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/login'
 }));
