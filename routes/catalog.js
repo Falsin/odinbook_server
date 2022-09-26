@@ -38,14 +38,19 @@ router.get("/login/facebook",
 },
 passportForFacebook.authenticate("facebook"));
 
-router.get("https://falsin.github.io/odinbook_client", 
+/* router.get("https://falsin.github.io/odinbook_client", 
   (req, res, next) => {
     res.json(req.user)
   }
-)
+) */
+
+/* router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
+  successRedirect: 'https://falsin.github.io/odinbook_client',
+  failureRedirect: '/error'
+})); */
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
-  successRedirect: 'https://falsin.github.io/odinbook_client',
+  successRedirect: 'http://localhost:8080',
   failureRedirect: '/error'
 }));
 
