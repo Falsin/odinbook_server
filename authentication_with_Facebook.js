@@ -74,7 +74,7 @@ passport.use(new FacebookStrategy({
   callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile._json.id_str})
-
+    console.log(profile)
     if(!currentUser) {
       console.log('this is work');
       /* const newUser = await new User({
