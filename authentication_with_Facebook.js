@@ -11,6 +11,16 @@ passport.use(new FacebookStrategy({
   //callbackURL: '/oauth2/redirect/facebook',
   state: true
 }, function verify(accessToken, refreshToken, profile, cb) {
+  return cb(null, profile); 
+}));
+
+/* passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
+  //callbackURL: '/oauth2/redirect/facebook',
+  state: true
+}, function verify(accessToken, refreshToken, profile, cb) {
   User.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
     'https://www.facebook.com',
     profile.id
@@ -44,7 +54,7 @@ passport.use(new FacebookStrategy({
       });
     }
   });
-}));
+})); */
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
