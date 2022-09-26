@@ -73,6 +73,7 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
+    console.log('this is facebook strategy')
     console.log(profile)
     //const currentUser = await User.findOne({facebookId: profile._json.id_str})
     
