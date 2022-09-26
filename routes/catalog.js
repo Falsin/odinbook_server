@@ -40,7 +40,7 @@ passportForFacebook.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: '/error'
 }));
 
 function createUserObject(obj) {
