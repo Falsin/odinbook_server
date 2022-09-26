@@ -15,7 +15,7 @@ router.post("/",
 )
 
 router.get("/", (req, res, next) => {
-  console.log('this / is work')
+  console.log(req)
   res.json(req.user ? createUserObject(req.user) : null)
 });
 
@@ -39,7 +39,7 @@ router.get("/login/facebook",
 passportForFacebook.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
-  successRedirect: '/',
+  successRedirect: 'https://falsin.github.io/odinbook_client',
   failureRedirect: '/error'
 }));
 
