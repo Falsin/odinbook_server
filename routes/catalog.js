@@ -25,6 +25,10 @@ router.post("/login",
   (req, res, next) => res.json(createUserObject(req.user))
 )
 
+router.post("/error", 
+  (req, res, next) => res.json('something wrong')
+)
+
 router.get("/logout", userController.logout);
 
 router.get("/login/facebook", 
@@ -32,7 +36,10 @@ router.get("/login/facebook",
   console.log('hello!');
   next()
 },
-passportForFacebook.authenticate("facebook"));
+passportForFacebook.authenticate("facebook", {
+  successRedirect: '/',
+  failureRedirect: '/error'
+}));
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: '/',
