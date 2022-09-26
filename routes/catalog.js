@@ -36,10 +36,7 @@ router.get("/login/facebook",
   console.log('hello!');
   next()
 },
-passportForFacebook.authenticate("facebook", {
-  successRedirect: '/',
-  failureRedirect: '/error'
-}));
+passportForFacebook.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: '/',

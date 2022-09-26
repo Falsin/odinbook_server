@@ -4,6 +4,7 @@ const passport = require("passport");
 const FacebookStrategy = require('passport-facebook');
 const User = require("./models/user");
 
+const bcrypt = require('bcrypt');
 /* passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
@@ -73,22 +74,30 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
-    console.log('this is facebook strategy')
+    console.log('this is facebook')
     console.log(profile)
-    //const currentUser = await User.findOne({facebookId: profile._json.id_str})
+    const currentUser = await User.findOne({facebookId: profile.id})
     
     if(!currentUser) {
-      console.log('this is work');
-      /* const newUser = await new User({
-        name: profile._json.name,
-        screenName: profile._json.screen_name,
-        twitterId: profile._json.id_str,
-        profileImageUrl: profile._json.profile_image_url
-      }).save();
-      if (newUser) {
-        done(null, newUser);
-      } */
+      
+      bcrypt.hash('123', 10, (err, salt) => {
+        if (err) {
+          return cb(err)
+        } else {
+          const user = new User({
+            first_name: profile.displayName.split(" ")[0],
+            last_name: profile.displayName.split(" ")[1],
+            username: profile.displayName,
+            facebookId: profile.id,
+            password: salt,
+            birth_date: new Date().toLocaleString()
+          }).save((err, user) => {
+            return cb(null, user);
+          })
+        } 
+      })
     }
+    return cb(null, currentUser)
   }
 ))
 

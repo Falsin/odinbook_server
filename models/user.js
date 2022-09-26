@@ -14,7 +14,8 @@ const UserSchema = new Schema({
   friends: {type: Array},
   incoming_friends_requests: {type: Array},
   outcoming_friends_requests: {type: Array},
-  birth_date: {type: Date, required: true}
+  birth_date: {type: Date, required: true},
+  facebookId: {type: String}
 })
 
 module.exports = mongoose.model('User', UserSchema);
