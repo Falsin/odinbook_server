@@ -49,7 +49,7 @@ passportForFacebook.authenticate("facebook"));
   failureRedirect: '/error'
 })); */
 
-router.get('/success#_=_', (req, res, next) => {
+router.get('/success', (req, res, next) => {
   res.redirect("https://localhost:8080")
 });
 
