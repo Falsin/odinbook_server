@@ -38,6 +38,12 @@ router.get("/login/facebook",
 },
 passportForFacebook.authenticate("facebook"));
 
+router.get("https://falsin.github.io/odinbook_client", 
+  (req, res, next) => {
+    res.json(req.user)
+  }
+)
+
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: 'https://falsin.github.io/odinbook_client',
   failureRedirect: '/error'
