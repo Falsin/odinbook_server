@@ -15,9 +15,9 @@ router.post("/",
 )
 
 router.get("/", (req, res, next) => {
-  console.log(req)
+/*   console.log(req)
   console.log('hello')
-  console.log(req.user)
+  console.log(req.user) */
   res.json(req.user ? createUserObject(req.user) : null)
 });
 
@@ -34,10 +34,10 @@ router.post("/error",
 router.get("/logout", userController.logout);
 
 router.get("/login/facebook", 
-(res, req, next) => {
+/* (res, req, next) => {
   console.log('hello!');
   next()
-},
+}, */
 passportForFacebook.authenticate("facebook"));
 
 /* router.get("https://falsin.github.io/odinbook_client", 
@@ -69,10 +69,10 @@ passportForFacebook.authenticate("facebook"));
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: 'https://localhost:8080',
   failureRedirect: '/error'
-}), (req, res, next) => {
+})/* , (req, res, next) => {
   console.log('this is console.log after redirect')
   console.log(req)
-}
+} */
 
 );
 
