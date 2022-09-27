@@ -51,7 +51,7 @@ app.use(cookieSession({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000000000,
-    sameSite: "None",
+    sameSite: "none",
     secure: true,
   }
 }));
@@ -77,7 +77,12 @@ app.use(compression());
 app.use(cookieParser());
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({
+  cookie: {
+    sameSite: "none",
+    secure: true,
+  }
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
