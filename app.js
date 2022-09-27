@@ -51,6 +51,8 @@ app.use(cookieSession({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000000000,
+    sameSite: `${inProd ? "none" : "lax"}`,
+    secure: `${inProd ? "true" : "auto"}`,
   }
 }));
 
