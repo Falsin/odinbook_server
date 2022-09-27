@@ -52,19 +52,24 @@ router.get("/login/facebook", passportForFacebook.authenticate("facebook"));
   res.redirect("https://localhost:8080")
 }); */
 
-router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
+/* router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: 'https://localhost:8080',
   failureRedirect: '/error'
 })
-);
+); */
 
-/* router.get('/oauth2/redirect/facebook', 
+router.get('/oauth2/redirect/facebook', 
   passportForFacebook.authenticate('facebook'),
   (req, res, next) => {
-    console.log(req)
-    res.redirect('https://localhost:8080');
+    req.session.save((err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect("https://localhost:8080");
+       }
+    })
   }
-); */
+);
 
 function createUserObject(obj) {
   const { 
