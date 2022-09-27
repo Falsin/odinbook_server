@@ -71,12 +71,12 @@ app.use(cookieSession({
 
 app.use(cookieParser());
 
-app.use((req, res, next)=>{
+/* app.use((req, res, next)=>{
   console.log('hello world');
   console.log(req["sessionCookies"])
   req["sessionCookies"].secure = true;
   next();
-});
+}); */
 
 
 /* app.use(cookieSession({ 
