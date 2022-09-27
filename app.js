@@ -100,6 +100,8 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log('fuck')
+  console.log(err.message)
 /*   console.log('fuck')
   console.log(err) */
   // set locals, only providing error in development
