@@ -43,6 +43,8 @@ app.use(cors({
 }));
 
 app.use(session({ 
+  sameSite: `${inProd ? "none" : "lax"}`,
+  secure: `${inProd ? "true" : "auto"}`,
   secret: "cats", 
   resave: true, 
   saveUninitialized: false,
