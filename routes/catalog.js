@@ -55,13 +55,23 @@ passportForFacebook.authenticate("facebook"));
   res.redirect("https://localhost:8080")
 }); */
 
-router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
+/* router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   session: true,
   successRedirect: 'https://localhost:8080',
   failureRedirect: '/error'
 }), (req, res, next) => {
   console.log('this is console.log after redirect')
   console.log(req)
+}
+
+); */
+
+router.get('/oauth2/redirect/facebook', 
+  passportForFacebook.authenticate('facebook'), 
+  (req, res, next) => {
+  console.log('this is console.log after redirect')
+  console.log(req);
+  res.json('hello 123456789')
 }
 
 );
