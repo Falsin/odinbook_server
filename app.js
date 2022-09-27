@@ -57,6 +57,8 @@ app.use(session({
 
 }));
 
+app.use(cookieParser());
+
 //app.set('trust proxy', 1)
 app.use(cookieSession({ 
   secret: "cats", 
@@ -92,8 +94,6 @@ app.use(cookieSession({
 })); */
 
 //app.use(compression());
-
-app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());
