@@ -74,8 +74,8 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
-    console.log('this is facebook')
-    console.log(profile)
+/*     console.log('this is facebook')
+    console.log(profile) */
     const currentUser = await User.findOne({facebookId: profile.id})
     
     if(!currentUser) {
@@ -92,6 +92,8 @@ passport.use(new FacebookStrategy({
             password: salt,
             birth_date: new Date().toLocaleString()
           }).save((err, user) => {
+            console.log('check this point')
+            console.log(user)
             return cb(null, user);
           })
         } 
