@@ -16,6 +16,8 @@ const compression = require("compression");
 
 var app = express();
 
+const inProd = process.env.NODE_ENV === "production";
+
 app.use(helmet());
 
 // view engine setup
