@@ -77,6 +77,7 @@ passport.use(new FacebookStrategy({
 /*     console.log('this is facebook')
     console.log(profile) */
     const currentUser = await User.findOne({facebookId: profile.id})
+    console.log('hot point')
     
     if(!currentUser) {
       
