@@ -46,8 +46,15 @@ app.use(cors({
 }));
 
 app.use(cookieSession({ 
-  sameSite: `${inProd ? "none" : "lax"}`,
-  secure: `${inProd ? "true" : "auto"}`,
+  secret: "cats", 
+  resave: true, 
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000000000,
+  }
+}));
+
+/* app.use(cookieSession({ 
   secret: "cats", 
   resave: true, 
   saveUninitialized: false,
@@ -55,13 +62,13 @@ app.use(cookieSession({
     mongoUrl: mongoDB,
     collectionName: 'sessions',
   }),
-/*   cookie: {
+  cookie: {
     maxAge: 1000000000,
-  } */
+  }
   cookie: {
     maxAge: 3000000,
   }
-}));
+})); */
 
 app.use(compression());
 

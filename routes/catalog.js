@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
   console.log('hello')
   console.log(req.user) */
   console.log('hello')
-  console.log(req)
+  console.log(req.user)
   res.json(req.user ? createUserObject(req.user) : null)
 });
 
