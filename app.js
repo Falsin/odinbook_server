@@ -58,6 +58,8 @@ app.use(cookieSession({
 }));
 
 app.use((req, res, next)=>{
+  console.log('hello world');
+  console.log(req)
   req["sessionCookies"].secure = true;
   next();
 });
