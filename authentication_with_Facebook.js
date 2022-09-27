@@ -101,4 +101,18 @@ passport.use(new FacebookStrategy({
   }
 ))
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(user => {
+      done(null, user);
+    })
+    .catch(e => {
+      done(new Error("Failed to deserialize an user"));
+    });
+});
+
 module.exports = passport;

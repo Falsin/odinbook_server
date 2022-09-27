@@ -8,8 +8,7 @@ var mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const helmet = require("helmet");
-
-const passport = require("./authentication");
+const passport = require("passport");
 //const passportForFacebook = require("./authentication_with_Facebook");
 const router  = require('./routes/catalog');
 
