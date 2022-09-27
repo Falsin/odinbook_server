@@ -45,7 +45,7 @@ app.use(cors({
   }
 }));
 
-app.use(session({ 
+/* app.use(session({ 
   secret: "cats", 
   resave: true, 
   saveUninitialized: false,
@@ -55,9 +55,7 @@ app.use(session({
     secure: true,
   },
 
-}));
-
-app.use(cookieParser());
+})); */
 
 //app.set('trust proxy', 1)
 app.use(cookieSession({ 
@@ -68,6 +66,8 @@ app.use(cookieSession({
     maxAge: 3000000,
   }
 }));
+
+app.use(cookieParser());
 
 /* app.use((req, res, next)=>{
   console.log('hello world');
