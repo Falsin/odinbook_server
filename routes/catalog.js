@@ -33,12 +33,7 @@ router.post("/error",
 
 router.get("/logout", userController.logout);
 
-router.get("/login/facebook", 
-/* (res, req, next) => {
-  console.log('hello!');
-  next()
-}, */
-passportForFacebook.authenticate("facebook"));
+router.get("/login/facebook", passportForFacebook.authenticate("facebook"));
 
 /* router.get("https://falsin.github.io/odinbook_client", 
   (req, res, next) => {
@@ -55,20 +50,19 @@ passportForFacebook.authenticate("facebook"));
   res.redirect("https://localhost:8080")
 }); */
 
-/* router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
-  session: true,
+router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
   successRedirect: 'https://localhost:8080',
   failureRedirect: '/error'
 })
-); */
+);
 
-router.get('/oauth2/redirect/facebook', 
+/* router.get('/oauth2/redirect/facebook', 
   passportForFacebook.authenticate('facebook'),
   (req, res, next) => {
     console.log(req)
     res.redirect('https://localhost:8080');
   }
-);
+); */
 
 function createUserObject(obj) {
   const { 

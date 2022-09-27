@@ -9,6 +9,7 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const helmet = require("helmet");
 const passport = require("passport");
+const cookieSession = require('cookie-session')
 //const passportForFacebook = require("./authentication_with_Facebook");
 const router  = require('./routes/catalog');
 
@@ -44,7 +45,7 @@ app.use(cors({
   }
 }));
 
-app.use(session({ 
+app.use(cookieSession({ 
   sameSite: `${inProd ? "none" : "lax"}`,
   secure: `${inProd ? "true" : "auto"}`,
   secret: "cats", 
