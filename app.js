@@ -52,9 +52,11 @@ app.use(cookieSession({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000000000,
-    sameSite: "none",
-    secure: true,
+/*     sameSite: "none",
+    secure: true, */
   },
+  sameSite: "none",
+    secure: true,
 }));
 
 app.use((req, res, next)=>{
