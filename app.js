@@ -45,15 +45,16 @@ app.use(cors({
   }
 }));
 
+app.set('trust proxy', 1)
 app.use(cookieSession({ 
   secret: "cats", 
   resave: true, 
   saveUninitialized: false,
   cookie: {
     maxAge: 1000000000,
-    sameSite: "none",
-    secure: true,
-  }
+  },
+  sameSite: "none",
+  secure: true,
 }));
 
 /* app.use(cookieSession({ 
@@ -77,12 +78,7 @@ app.use(compression());
 app.use(cookieParser());
 
 app.use(passport.initialize());
-app.use(passport.session({
-  cookie: {
-    sameSite: "none",
-    secure: true,
-  }
-}));
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
