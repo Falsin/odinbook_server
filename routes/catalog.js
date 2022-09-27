@@ -35,18 +35,7 @@ router.post("/error",
 
 router.get("/logout", userController.logout);
 
-router.get("/login/facebook", 
-  passportForFacebook.authenticate("facebook"),
-  (req, res, next) => {
-    req.session.save((err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect("https://localhost:8080");
-       }
-    })
-  }
-);
+router.get("/login/facebook", passportForFacebook.authenticate("facebook"));
 
 /* router.get("https://falsin.github.io/odinbook_client", 
   (req, res, next) => {

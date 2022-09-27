@@ -19,7 +19,7 @@ var app = express();
 
 //const inProd = process.env.NODE_ENV === "production";
 
-app.use(helmet());
+//app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -80,7 +80,7 @@ app.use((req, res, next)=>{
   }
 })); */
 
-app.use(compression());
+//app.use(compression());
 
 app.use(cookieParser());
 
