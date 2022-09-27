@@ -58,7 +58,14 @@ app.use(session({
 }));
 
 //app.set('trust proxy', 1)
-app.use(cookieSession());
+app.use(cookieSession({ 
+  secret: "cats", 
+  resave: true, 
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3000000,
+  }
+}));
 
 /* app.use((req, res, next)=>{
   console.log('hello world');
