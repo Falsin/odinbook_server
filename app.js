@@ -55,16 +55,16 @@ app.use(cookieSession({
 /*     sameSite: "none",
     secure: true, */
   },
-  sameSite: "none",
-    secure: true,
+/*   sameSite: "none",
+    secure: true, */
 }));
 
-app.use((req, res, next)=>{
+/* app.use((req, res, next)=>{
   console.log('hello world');
   console.log(req["sessionCookies"])
   req["sessionCookies"].secure = true;
   next();
-});
+}); */
 
 /* app.use(cookieSession({ 
   secret: "cats", 
