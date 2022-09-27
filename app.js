@@ -45,7 +45,7 @@ app.use(cors({
   }
 }));
 
-app.set('trust proxy', 1)
+//app.set('trust proxy', 1)
 app.use(cookieSession({ 
   secret: "cats", 
   resave: true, 
@@ -56,6 +56,11 @@ app.use(cookieSession({
   sameSite: "none",
   secure: true,
 }));
+
+app.use((req, res, next)=>{
+  req["sessionCookies"].secure = true;
+  next();
+});
 
 /* app.use(cookieSession({ 
   secret: "cats", 
