@@ -17,7 +17,7 @@ const compression = require("compression");
 
 var app = express();
 
-const inProd = process.env.NODE_ENV === "production";
+//const inProd = process.env.NODE_ENV === "production";
 
 app.use(helmet());
 
@@ -51,8 +51,8 @@ app.use(cookieSession({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000000000,
-    sameSite: `${inProd ? "None" : "Lax"}`,
-    secure: `${inProd ? "true" : "auto"}`,
+    sameSite: "None",
+    secure: true,
   }
 }));
 
