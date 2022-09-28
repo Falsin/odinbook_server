@@ -53,7 +53,7 @@ router.get("/login/facebook", passportForFacebook.authenticate("facebook"));
 }); */
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
-  successRedirect: 'https://localhost:808',
+  successRedirect: 'https://localhost:8080',
   failureRedirect: '/error'
 })
 );
