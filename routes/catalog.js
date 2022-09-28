@@ -53,7 +53,7 @@ router.get("/login/facebook", passportForFacebook.authenticate("facebook"));
 }); */
 
 router.get('/oauth2/redirect/facebook', passportForFacebook.authenticate('facebook', {
-  successRedirect: 'https://odinbook-client.pages.dev',
+  successRedirect: 'https://localhost:808',
   failureRedirect: '/error'
 })
 );
