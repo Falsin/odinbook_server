@@ -74,8 +74,6 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: 'https://mighty-reef-21129.herokuapp.com/oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
-/*     console.log('this is facebook')
-    console.log(profile) */
     const currentUser = await User.findOne({facebookId: profile.id})
     console.log('hot point')
     
@@ -103,6 +101,39 @@ passport.use(new FacebookStrategy({
     return cb(null, currentUser)
   }
 ))
+
+/* passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: 'https://localhost:3000/oauth2/redirect/facebook',
+  }, async function verify(accessToken, refreshToken, profile, cb) {
+    const currentUser = await User.findOne({facebookId: profile.id})
+    console.log('hot point')
+    
+    if(!currentUser) {
+      
+      bcrypt.hash('123', 10, (err, salt) => {
+        if (err) {
+          return cb(err)
+        } else {
+          const user = new User({
+            first_name: profile.displayName.split(" ")[0],
+            last_name: profile.displayName.split(" ")[1],
+            username: profile.displayName,
+            facebookId: profile.id,
+            password: salt,
+            birth_date: new Date().toLocaleString()
+          }).save((err, user) => {
+            console.log('check this point')
+            console.log(user)
+            return cb(null, user);
+          })
+        } 
+      })
+    }
+    return cb(null, currentUser)
+  }
+)) */
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
