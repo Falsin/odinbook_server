@@ -9,6 +9,8 @@ passport.use(facebook);
 passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser((id, done) => {
+  console.log("this is deserializeUser")
+  console.log(id)
   User.findById(id, (err, user) => {
     done(err, user);
   })

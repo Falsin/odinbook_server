@@ -8,8 +8,8 @@ const facebook = new FacebookStrategy({
   callbackURL: process.env.SERVER_URL + 'oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
-    console.log('this is facebook strategy')
-    console.log(currentUser)
+/*     console.log('this is facebook strategy')
+    console.log(currentUser) */
     if(!currentUser) {
       new User({
         first_name: profile.displayName.split(" ")[0],
