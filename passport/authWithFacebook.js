@@ -1,6 +1,6 @@
 require('dotenv').config();
 const FacebookStrategy = require('passport-facebook');
-const User = require("./models/user");
+const User = require("../models/user");
 
 const facebook = new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
