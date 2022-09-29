@@ -34,7 +34,9 @@ router.post("/error",
 
 router.get("/logout", userController.logout);
 
-router.get("/login/facebook", passport.authenticate("facebook"));
+router.get("/login/facebook", passport.authenticate("facebook", {
+  failureRedirect: '/error'
+}));
 
 router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
   successRedirect: 'https://localhost:8080',
