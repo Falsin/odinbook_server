@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer  = require('multer');
 const upload = multer();
+require('dotenv').config();
 const passport = require("../passport/passport");
 
 const userController = require("../controllers/userController");
@@ -25,7 +26,6 @@ router.post("/login",
 
 router.post("/error", 
   (req, res, next) => {
-    console.log(req)
     res.status(401).json({
       message: "user failed to authenticate."
     })
@@ -34,12 +34,10 @@ router.post("/error",
 
 router.get("/logout", userController.logout);
 
-router.get("/login/facebook", passport.authenticate("facebook", {
-  failureRedirect: '/error'
-}));
+router.get("/login/facebook", passport.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
-  successRedirect: 'https://localhost:8080',
+  successRedirect: process.env.CLIENT_URL,
   failureRedirect: '/error'
 }));
 
