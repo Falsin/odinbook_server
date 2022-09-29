@@ -4,16 +4,7 @@ const multer  = require('multer');
 const upload = multer();
 const passport = require("../passport/passport");
 
-/* const passport = require("../authentication");
-const passportForFacebook = require("../authentication_with_Facebook"); */
 const userController = require("../controllers/userController");
-
-/* router.post("/", 
-  upload.single("photo"), 
-  userController.sign_up_post, 
-  passport.authenticate('local', {failureRedirect: '/'}),
-  (req, res, next) => res.json(createUserObject(req.user))
-) */
 
 router.post("/", 
   upload.single("photo"), 
@@ -33,12 +24,15 @@ router.post("/login",
 )
 
 router.post("/error", 
-  (req, res, next) => res.json('something wrong')
+  (req, res, next) => {
+    console.log(req)
+    res.status(401).json({
+      message: "user failed to authenticate."
+    })
+  }
 )
 
 router.get("/logout", userController.logout);
-
-/* router.get("/login/facebook", passportForFacebook.authenticate("facebook")); */
 
 router.get("/login/facebook", passport.authenticate("facebook"));
 
