@@ -8,10 +8,13 @@ var mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const helmet = require("helmet");
-const passport = require("passport");
+//const passport = require("passport");
 const cookieSession = require('cookie-session')
 //const passportForFacebook = require("./authentication_with_Facebook");
 const router  = require('./routes/catalog');
+
+
+const passport = require("./passport/passport");
 
 const compression = require("compression");
 
@@ -35,8 +38,6 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // allow session cookie from browser to pass through
   origin: (origin, callback) => {
-    //console.log(origin)
-    //console.log('hello123')
     if (whitelist.includes(origin) || !origin || origin) {
       callback(null, true);
     } else {
@@ -45,19 +46,6 @@ app.use(cors({
   }
 }));
 
-/* app.use(session({ 
-  secret: "cats", 
-  resave: true, 
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000000000,
-    sameSite: "none",
-    secure: true,
-  },
-
-})); */
-
-//app.set('trust proxy', 1)
 app.use(session({ 
   secret: "cats", 
   resave: true, 
@@ -71,32 +59,6 @@ app.use(session({
 }));
 
 app.use(cookieParser());
-
-/* app.use((req, res, next)=>{
-  console.log('hello world');
-  console.log(req["sessionCookies"])
-  req["sessionCookies"].secure = true;
-  next();
-}); */
-
-
-/* app.use(cookieSession({ 
-  secret: "cats", 
-  resave: true, 
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: mongoDB,
-    collectionName: 'sessions',
-  }),
-  cookie: {
-    maxAge: 1000000000,
-  }
-  cookie: {
-    maxAge: 3000000,
-  }
-})); */
-
-//app.use(compression());
 
 app.use(passport.initialize());
 app.use(passport.session());
