@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer  = require('multer');
 const upload = multer();
-const passport = require("../passport")
+const passport = require("../passport/passport");
 
 /* const passport = require("../authentication");
 const passportForFacebook = require("../authentication_with_Facebook"); */
