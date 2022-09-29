@@ -8,11 +8,10 @@ var mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const helmet = require("helmet");
-//const passport = require("passport");
-const cookieSession = require('cookie-session')
-//const passportForFacebook = require("./authentication_with_Facebook");
-const router  = require('./routes/catalog');
+require('dotenv').config();
 
+const cookieSession = require('cookie-session')
+const router  = require('./routes/catalog');
 
 const passport = require("./passport/passport");
 
@@ -20,15 +19,11 @@ const compression = require("compression");
 
 var app = express();
 
-//const inProd = process.env.NODE_ENV === "production";
-
-//app.use(helmet());
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-var mongoDB = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox.jnrzi.mongodb.net/odinbook?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
