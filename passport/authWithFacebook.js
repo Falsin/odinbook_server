@@ -8,6 +8,7 @@ const facebook = new FacebookStrategy({
   callbackURL: process.env.SERVER_URL + 'oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
+    console.log(profile)
 
     if(!currentUser) {
       new User({
