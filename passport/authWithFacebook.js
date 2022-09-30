@@ -18,7 +18,7 @@ const facebook = new FacebookStrategy({
 
 
     if(!currentUser) {
-      new User({
+      return new User({
         first_name: profile.displayName.split(" ")[0],
         last_name: profile.displayName.split(" ")[1],
         username: profile.displayName,
