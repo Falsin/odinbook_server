@@ -5,7 +5,6 @@ const path = require('path');
 const FacebookStrategy = require('passport-facebook');
 const User = require("../models/user");
 
-
 const facebook = new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
