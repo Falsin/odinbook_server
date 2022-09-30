@@ -15,9 +15,9 @@ const facebook = new FacebookStrategy({
     console.log('fuck')
 
     if(!currentUser) {
-      const filePath = path.resolve(__dirname, "../public/images/user.jpeg");
+/*       const filePath = path.resolve(__dirname, "../public/images/user.jpeg");
       const fileContent = fs.readFileSync(filePath);
-      const contentType = path.extname(filePath);
+      const contentType = path.extname(filePath); */
 
       console.log(fileContent)
       console.log(contentType)
@@ -29,10 +29,10 @@ const facebook = new FacebookStrategy({
         facebookId: profile.id,
         password: "null",
         birth_date: new Date().toLocaleString(),
-        photo: {
+/*         photo: {
           data: fileContent,
           contentType: "image/" + contentType.slice(1)
-        }
+        } */
       }).save((err, user) => {
         console.log('end')
         console.log(err)
