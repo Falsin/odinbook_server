@@ -17,6 +17,9 @@ const facebook = new FacebookStrategy({
       const fileContent = fs.readFileSync(filePath);
       const contentType = path.extname(filePath);
 
+      console.log(fileContent)
+      console.log(contentType)
+
       new User({
         first_name: profile.displayName.split(" ")[0],
         last_name: profile.displayName.split(" ")[1],
