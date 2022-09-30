@@ -12,6 +12,8 @@ const facebook = new FacebookStrategy({
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
 
+    console.log('fuck')
+
     if(!currentUser) {
       const filePath = path.resolve(__dirname, "../public/images/user.jpeg");
       const fileContent = fs.readFileSync(filePath);
