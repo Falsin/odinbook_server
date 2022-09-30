@@ -34,6 +34,7 @@ const facebook = new FacebookStrategy({
           contentType: "image/" + contentType.slice(1)
         }
       }).save((err, user) => {
+        console.log('end')
         return cb(null, user);
       })
     }
