@@ -2,13 +2,16 @@ require('dotenv').config();
 const FacebookStrategy = require('passport-facebook');
 const User = require("../models/user");
 
+let fs = require('fs');
+let fileContent = fs.readFileSync("../public/images/user.jpeg");
+
 const facebook = new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: process.env.SERVER_URL + 'oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
-    console.log(profile)
+    console.log(fileContent)
 
     if(!currentUser) {
       new User({
