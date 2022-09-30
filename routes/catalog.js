@@ -24,11 +24,11 @@ router.post("/login",
   (req, res, next) => res.json(createUserObject(req.user))
 )
 
-router.post("/error", 
+/* router.post("/error", 
   (req, res, next) => {
     res.redirect(`${process.env.CLIENT_URL}/error`)
   }
-)
+) */
 
 router.get("/logout", userController.logout);
 
@@ -36,7 +36,8 @@ router.get("/login/facebook", passport.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
   successRedirect: process.env.CLIENT_URL,
-  failureRedirect: '/error'
+  //failureRedirect: '/error'
+  failureRedirect: process.env.CLIENT_URL + '/error'
 }));
 
 function createUserObject(obj) {
