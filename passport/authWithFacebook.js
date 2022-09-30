@@ -30,11 +30,12 @@ const facebook = new FacebookStrategy({
           contentType: "image/" + contentType.slice(1)
         }
       }).save((err, user) => {
-        console.log("fuck")
+        console.log("stupid")
         console.log(err)
         return cb(null, user);
       })
     }
+    console.log("duble")
     return cb(null, currentUser)
   }
 )

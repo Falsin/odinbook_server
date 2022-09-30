@@ -21,7 +21,7 @@ exports.sign_up_post = [
       if (err) {
         next(err)
       } else {
-        new User({
+        return new User({
           first_name: req.body.first_name,
           last_name: req.body.last_name,
           username: req.body.username,
