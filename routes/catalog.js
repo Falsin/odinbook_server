@@ -26,9 +26,7 @@ router.post("/login",
 
 router.post("/error", 
   (req, res, next) => {
-    res.status(401).json({
-      message: "user failed to authenticate."
-    })
+    res.redirect(`${process.env.CLIENT_URL}/error`)
   }
 )
 
