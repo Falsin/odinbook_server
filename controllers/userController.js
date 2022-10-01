@@ -55,7 +55,7 @@ exports.login = [
   }
 ]
 
-/* exports.logout = (req, res, next) => {
+exports.logout = (req, res, next) => {
   console.log('hello')
   //console.log(req)
   req.logout((err) => {
@@ -65,4 +65,4 @@ exports.login = [
     console.log('hello1')
     res.redirect("/")
   });
-} */
+}
