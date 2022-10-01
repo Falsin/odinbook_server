@@ -33,7 +33,14 @@ router.post("/login",
 
 router.get("/logout", (req, res, next) => {
   console.log('the first console')
-  userController.logout
+  req.logout((err) => {
+    if (err) {
+      next(err)
+    }
+    console.log('hello1')
+    res.redirect("/")
+  });
+  //userController.logout
 });
 
 router.get("/login/facebook", passport.authenticate("facebook"));
