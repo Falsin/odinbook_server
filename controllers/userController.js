@@ -56,7 +56,7 @@ exports.login = [
 ]
 
 exports.logout = (req, res, next) => {
-  console.log('hello')
+  /* console.log('hello')
   console.log(typeof req.logout)
   console.log(req.logout())
   res.redirect("/")
@@ -66,5 +66,7 @@ exports.logout = (req, res, next) => {
     }
     console.log('hello1')
     res.redirect("/")
-  });
+  }); */
+  req.logout();
+  res.redirect("/");
 }
