@@ -58,7 +58,10 @@ exports.login = [
 exports.logout = (req, res, next) => {
   console.log('hello')
   //console.log(req)
-  req.logout(() => {
+  req.logout((err) => {
+    if (err) {
+      next(err)
+    }
     console.log('hello1')
     res.redirect("/")
   });
