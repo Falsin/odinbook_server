@@ -33,6 +33,7 @@ router.post("/login",
 
 router.post("/logout", (req, res, next) => {
   console.log('the first console')
+  console.log(req.logout)
   req.logout((err) => {
     if (err) {
       next(err)
