@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   username: {type: String, required: true, maxLength: 100},
   password: {type: Schema.Types.Mixed, required: true},
   photo: {
-    data: Buffer, 
+    bufferObject: Buffer, 
     contentType: String,
   },
   friends: {type: Array},

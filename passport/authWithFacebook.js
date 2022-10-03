@@ -25,7 +25,7 @@ const facebook = new FacebookStrategy({
         password: null,
         birth_date: new Date().toLocaleString(),
         photo: {
-          data: fileContent,
+          bufferObject: fileContent,
           contentType: "image/" + contentType.slice(1)
         }
       }).save((err, user) => {
