@@ -16,6 +16,8 @@ const facebook = new FacebookStrategy({
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
 
+    console.log('hello1')
+
     if(!currentUser) {
       return new User({
         first_name: profile.displayName.split(" ")[0],
@@ -29,6 +31,7 @@ const facebook = new FacebookStrategy({
           contentType: "image/" + contentType.slice(1)
         }
       }).save((err, user) => {
+        console.log('hello2')
         return cb(null, user);
       })
     }
