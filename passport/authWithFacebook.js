@@ -24,7 +24,7 @@ const facebook = new FacebookStrategy({
         last_name: profile.displayName.split(" ")[1],
         username: profile.displayName,
         facebookId: profile.id,
-        password: null,
+        password: "null",
         birth_date: new Date().toLocaleString(),
         photo: {
           bufferObject: fileContent,
