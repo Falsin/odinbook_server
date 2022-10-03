@@ -32,6 +32,7 @@ const facebook = new FacebookStrategy({
         }
       }).save((err, user) => {
         console.log('hello2')
+        console.log(err)
         return cb(null, user);
       })
     }
