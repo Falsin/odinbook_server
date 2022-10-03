@@ -33,7 +33,7 @@ router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
   failureRedirect: process.env.CLIENT_URL + '/error'
 }));
 
-router.delete('/account', userController)
+router.delete('/account', userController.delete)
 
 function createUserObject(obj) {
   const { 
