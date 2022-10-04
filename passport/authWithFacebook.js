@@ -16,6 +16,8 @@ const facebook = new FacebookStrategy({
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id})
 
+    console.log(currentUser)
+
     if(!currentUser) {
       return new User({
         first_name: profile.displayName.split(" ")[0],
