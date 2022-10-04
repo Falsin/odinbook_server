@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 
 const User = require("../models/user");
 
+const filePath = path.resolve(__dirname, "../public/images/user.jpeg");
+const fileContent = fs.readFileSync(filePath);
+const contentType = path.extname(filePath);
+
 exports.sign_up_post = [
   body('first_name', 'FirstName must not be empty.').trim().isLength({ min: 1 }).escape(),
   body('last_name', 'LastName must not be empty.').trim().isLength({ min: 1 }).escape(),
@@ -16,6 +20,8 @@ exports.sign_up_post = [
     if (!error.isEmpty()) {
       return res.json('false')
     }
+
+    console.log(req.file)
 
     bcrypt.hash(req.body.password, 10, (err, salt) => {
       if (err) {
