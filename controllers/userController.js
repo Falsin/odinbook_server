@@ -64,6 +64,8 @@ exports.delete = async (req, res, next) => {
   await User.findByIdAndDelete(req.body._id);
   req.logout();
 
-  console.log(User.findByIdAndDelete(req.body._id))
+  const response = await User.findByIdAndDelete(req.body._id)
+
+  console.log(response)
   res.json(true);
 }
