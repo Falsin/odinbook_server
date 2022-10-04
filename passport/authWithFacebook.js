@@ -16,11 +16,11 @@ const facebook = new FacebookStrategy({
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id});
 
-    console.log(User.countDocuments({facebookId: profile.id}, (err, countDocs) => {
+    /* console.log(User.countDocuments({facebookId: profile.id}, (err, countDocs) => {
       console.log(countDocs)
     }))
 
-    console.log(currentUser)
+    console.log(currentUser) */
 
     if(!currentUser) {
       return new User({
