@@ -26,7 +26,10 @@ router.post("/login",
 
 router.post("/logout", userController.logout);
 
-router.get("/login/facebook", passport.authenticate("facebook"));
+router.get("/login/facebook", (req, res, next) => {
+  console.log(req)
+  next()
+}, passport.authenticate("facebook"));
 
 router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
   successRedirect: process.env.CLIENT_URL,
