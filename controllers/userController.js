@@ -72,3 +72,35 @@ exports.delete = async (req, res, next) => {
   req.logout();
   res.json(true);
 }
+
+exports.people_get = async (req, res, next) => {
+  const userArray = await User.find({_id: {$ne: req.user._id}})
+  const modifiedArray = userArray.map(item => createUserObject(item));
+  res.json(modifiedArray);
+}
+
+function createUserObject(obj) {
+  const { 
+    _id, 
+    first_name, 
+    last_name, 
+    username, 
+    birth_date, 
+    photo, 
+    friends, 
+    incoming_friends_requests, 
+    outcoming_friends_requests 
+  } = obj;
+
+  return { 
+    _id, 
+    first_name, 
+    last_name, 
+    username, 
+    birth_date, 
+    photo, 
+    friends, 
+    incoming_friends_requests, 
+    outcoming_friends_requests 
+  }
+}
