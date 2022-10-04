@@ -14,13 +14,7 @@ const facebook = new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: process.env.SERVER_URL + 'oauth2/redirect/facebook',
   }, async function verify(accessToken, refreshToken, profile, cb) {
-    const currentUser = await User.findOne({facebookId: profile.id});
-
-    /* console.log(User.countDocuments({facebookId: profile.id}, (err, countDocs) => {
-      console.log(countDocs)
-    }))
-
-    console.log(currentUser) */
+    const currentUser = await User.findOne({facebookId: profile.id})
 
     if(!currentUser) {
       return new User({
