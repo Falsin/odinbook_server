@@ -22,7 +22,10 @@ router.post("/login",
   userController.login,
   passport.authenticate('local', {failureRedirect: '/'}),
   //(req, res, next) => res.json(createUserObject(req.user))
-  (req, res, next) => res.redirect(process.env.CLIENT_URL)
+  (req, res, next) => {
+    console.log(process.env.CLIENT_URL)
+    res.redirect(process.env.CLIENT_URL)
+  }
 )
 
 router.post("/logout", userController.logout);

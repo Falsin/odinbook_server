@@ -24,8 +24,6 @@ exports.sign_up_post = [
       return res.json('false')
     }
 
-    console.log(req.file)
-
     bcrypt.hash(req.body.password, 10, (err, salt) => {
       if (err) {
         next(err)
