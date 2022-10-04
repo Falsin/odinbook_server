@@ -37,8 +37,8 @@ exports.sign_up_post = [
           password: salt,
           birth_date: req.body.birth_date,
           photo: {
-            bufferObject: req.file.buffer,
-            contentType: req.file.mimetype
+            bufferObject: req.file ? req.file.buffer : fileContent,
+            contentType: req.file ? req.file.mimetype : "image/" + contentType.slice(1)
           }
         }).save((err, user) => {
           next()
