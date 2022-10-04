@@ -16,7 +16,9 @@ const facebook = new FacebookStrategy({
   }, async function verify(accessToken, refreshToken, profile, cb) {
     const currentUser = await User.findOne({facebookId: profile.id});
 
-    console.log(User.find({facebookId: profile.id}).count())
+    console.log(User.countDocuments({}, (err, countDocs) => {
+      console.log(countDocs)
+    }))
 
     console.log(currentUser)
 
