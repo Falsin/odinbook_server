@@ -61,11 +61,11 @@ exports.logout = (req, res, next) => {
 }
 
 exports.delete = async (req, res, next) => {
-  await User.findByIdAndDelete(req.body._id);
   console.log(req.body);
+  await User.findByIdAndDelete(req.body._id);
 
-  const response = await User.findOne({facebookId: req.body.facebookId})
-  console.log(response)
+/*   const response = await User.findOne({facebookId: req.body.facebookId})
+  console.log(response) */
   req.logout();
 
 /*   const response = await User.findByIdAndDelete(req.body._id)
