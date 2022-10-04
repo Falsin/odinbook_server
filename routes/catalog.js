@@ -35,6 +35,8 @@ router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
 
 router.delete('/account', userController.delete)
 
+router.get("/people", userController.people_get);
+
 function createUserObject(obj) {
   const { 
     _id, 
