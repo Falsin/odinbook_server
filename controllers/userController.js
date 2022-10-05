@@ -75,7 +75,21 @@ exports.delete = async (req, res, next) => {
 }
 
 exports.people_get = async (req, res, next) => {
-  const userArray = await User.find({_id: {$ne: req.user._id}})
+  const userArray = await User.find({_id: {$ne: req.user._id}});
   const modifiedArray = userArray.map(item => createUserObject(item));
   res.json(modifiedArray);
+}
+
+exports.friend_put = async (req, res, next) => {
+  let requiredFriend = await User.find({_id: req.body._id});
+  let currentUser = await User.find({_id: req.user._id});
+
+  //await currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(item))
+  currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(req.body));
+  currentUser = await currentUser.save();
+
+  requiredFriend.incoming_friends_requests = requiredFriend.incoming_friends_requests.push(createUserObject(req.user));
+  requiredFriend = await requiredFriend.save();
+
+  res.json(createUserObject(currentUser));
 }
