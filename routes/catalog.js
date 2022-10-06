@@ -16,7 +16,7 @@ router.post("/",
 )
 
 router.get("/", (req, res, next) => {
-  console.log(req.user)
+  //console.log(req.user)
   res.json(req.user ? createUserObject(req.user) : null)
 });
 
