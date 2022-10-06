@@ -81,15 +81,26 @@ exports.people_get = async (req, res, next) => {
 }
 
 exports.friend_put = async (req, res, next) => {
-  let requiredFriend = await User.find({_id: req.body._id});
   let currentUser = await User.find({_id: req.user._id});
+  let requiredFriend = await User.find({_id: req.body._id});
+  
+  currentUser.outcoming_friends_requests = currentUser.outcoming_friends_requests.push(req.body._id);
+  requiredFriend.incoming_friends_requests = requiredFriend.incoming_friends_requests.push(req.user_id);
 
-  //await currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(item))
-  currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(req.body));
   currentUser = await currentUser.save();
+  await currentUser.populate('outcoming_friends_requests');
 
-  requiredFriend.incoming_friends_requests = requiredFriend.incoming_friends_requests.push(createUserObject(req.user));
   requiredFriend = await requiredFriend.save();
+
+  res.json(currentUser);
+  //await currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(item))
+  //currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(req.body));
+  //currentUser = await currentUser.save();
+
+  //.incoming_friends_requests = requiredFriend.incoming_friends_requests.push(createUserObject(req.user));
+  // = await requiredFriend.save();
+
+
 
   res.json(createUserObject(currentUser));
 }
