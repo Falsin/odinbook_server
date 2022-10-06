@@ -106,5 +106,5 @@ exports.friend_put = async (req, res, next) => {
 
 
 
-  res.json(createUserObject(currentUser));
+  //res.json(createUserObject(currentUser));
 }
