@@ -83,7 +83,10 @@ exports.people_get = async (req, res, next) => {
 exports.friend_put = async (req, res, next) => {
   let currentUser = await User.find({_id: req.user._id});
 
+  const createObject = createUserObject(currentUser);
+
   console.log(currentUser);
+  console.log(createObject)
   console.log(currentUser.outcoming_friends_requests);
   currentUser.outcoming_friends_requests.push(req.body._id);
   await currentUser.save();
