@@ -86,7 +86,7 @@ exports.friend_put = async (req, res, next) => {
   currentUser.outcoming_friends_requests.push(req.body._id);
   await currentUser.save();
   await currentUser.populate('outcoming_friends_requests');
-  console.log(currentUser)
+  console.log(currentUser.outcoming_friends_requests)
 
 
   let requiredFriend = await User.findOne({_id: req.body._id});
