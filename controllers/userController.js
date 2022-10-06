@@ -86,9 +86,9 @@ exports.friend_put = async (req, res, next) => {
 
   console.log(currentUser)
   //console.log(requiredFriend)
-  
+  console.log(currentUser.outcoming_friends_requests)
   currentUser.outcoming_friends_requests.push(req.body._id);
-  console.log(currentUser)
+
   
   requiredFriend.incoming_friends_requests.push(req.user_id);
 
