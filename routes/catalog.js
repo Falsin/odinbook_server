@@ -38,4 +38,6 @@ router.delete('/account', userController.delete)
 
 router.get("/people", userController.people_get);
 
+router.put("friend", userController.friend_put);
+
 module.exports = router;
