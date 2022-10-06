@@ -95,7 +95,8 @@ exports.friend_put = async (req, res, next) => {
   requiredFriend.incoming_friends_requests.push(req.user._id);
   await requiredFriend.save();
 
-  //console.log(requiredFriend)
+  console.log('requiredFriend');
+  console.log(requiredFriend);
   
 
   res.json(currentUser);
