@@ -82,20 +82,21 @@ exports.people_get = async (req, res, next) => {
 
 exports.friend_put = async (req, res, next) => {
   let currentUser = await User.find({_id: req.user._id});
+
+  console.log(currentUser);
+  console.log(currentUser.outcoming_friends_requests);
+  currentUser.outcoming_friends_requests.push(req.body._id);
+  await currentUser.save();
+  await currentUser.populate('outcoming_friends_requests');
+
   let requiredFriend = await User.find({_id: req.body._id});
+  requiredFriend.incoming_friends_requests.push(req.user_id);
+  await requiredFriend.save();
 
   console.log(currentUser)
   //console.log(requiredFriend)
   console.log(currentUser.outcoming_friends_requests)
-  currentUser.outcoming_friends_requests.push(req.body._id);
-
   
-  requiredFriend.incoming_friends_requests.push(req.user_id);
-
-  currentUser = await currentUser.save();
-  await currentUser.populate('outcoming_friends_requests');
-
-  requiredFriend = await requiredFriend.save();
 
   res.json(currentUser);
   //await currentUser.outcoming_friends_requests = currentUser.outcoming_friends_request.push(createUserObject(item))
