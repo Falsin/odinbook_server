@@ -80,6 +80,13 @@ exports.people_get = async (req, res, next) => {
   res.json(modifiedArray);
 }
 
+exports.outcoming_friends_requests = async (req, res, next) => {
+  let currentUser = await User.findOne({_id: req.user._id});
+  await currentUser.populate('outcoming_friends_requests');
+
+  res.json(currentUser.outcoming_friends_requests);
+}
+
 exports.friend_put = async (req, res, next) => {
   let currentUser = await User.findOne({_id: req.user._id});
   currentUser.outcoming_friends_requests.push(req.body._id);
