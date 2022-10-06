@@ -11,9 +11,9 @@ const UserSchema = new Schema({
     bufferObject: Buffer, 
     contentType: String,
   },
-  friends: {type: Array},
-  incoming_friends_requests: {type: Array},
-  outcoming_friends_requests: {type: Array},
+  friends: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  incoming_friends_requests: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  outcoming_friends_requests: [{type: Schema.Types.ObjectId, ref: 'User'}],
   birth_date: {type: Date, required: true},
   facebookId: {type: String}
 })
