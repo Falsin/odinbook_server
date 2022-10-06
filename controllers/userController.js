@@ -80,7 +80,7 @@ exports.people_get = async (req, res, next) => {
   res.json(modifiedArray);
 }
 
-exports.outcoming_friends_requests = async (req, res, next) => {
+exports.outcoming_friends_requests_get = async (req, res, next) => {
   let currentUser = await User.findOne({_id: req.user._id});
   await currentUser.populate('outcoming_friends_requests');
 
@@ -88,26 +88,14 @@ exports.outcoming_friends_requests = async (req, res, next) => {
 }
 
 exports.friend_put = async (req, res, next) => {
-  let currentUser = await User.findOne({_id: req.user._id});
-  currentUser.outcoming_friends_requests.push(req.body._id);
-  await currentUser.save();
-
-  let requiredFriend = await User.findOne({_id: req.body._id});
-  requiredFriend.incoming_friends_requests.push(req.user._id);
-  await requiredFriend.save();
+  const currentUser = await findUserAndModify(req.user._id, "outcoming_friends_requests", req.body._id);
+  await findUserAndModify(req.body._id, "incoming_friends_requests", req.user._id);
 
   res.json(currentUser);
-  /* let currentUser = await User.findOne({_id: req.user._id});
+}
 
-  currentUser.outcoming_friends_requests.push(req.body._id);
-  await currentUser.save();
-  await currentUser.populate('outcoming_friends_requests');
-
-
-
-  let requiredFriend = await User.findOne({_id: req.body._id});
-  requiredFriend.incoming_friends_requests.push(req.user._id);
-  await requiredFriend.save();
-  
-  res.json(currentUser); */
+async function findUserAndModify(userId, array, findUserId) {
+  let user = await User.findOne({_id: userId});
+  user[array].push(findUserId);
+  return await user.save();
 }
