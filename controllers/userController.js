@@ -88,6 +88,31 @@ exports.outcoming_friends_requests_get = async (req, res, next) => {
 }
 
 exports.friend_put = async (req, res, next) => {
+  const currentUser = await User.findById(req.user._id);
+  const frientUser = await User.findById(req.body._id);
+
+  if (!currentUser.outcoming_friends_requests.includes(req.user._id)) {
+    await modifyUser(currentUser, "outcoming_friends_requests", req.body._id);
+    await modifyUser(frientUser, "outcoming_friends_requests", req.user._id);
+  } else {
+    currentUser = null;
+  }
+  
+  res.json(currentUser);
+}
+
+async function modifyUser(user, array, findUserId) {
+  user[array].push(findUserId);
+  user.save();
+}
+
+/* async function findUserAndModify(userId, array, findUserId) {
+  let user = await User.findOne({_id: userId});
+  user[array].push(findUserId);
+  return await user.save();
+} */
+
+/* exports.friend_put = async (req, res, next) => {
   const currentUser = await findUserAndModify(req.user._id, "outcoming_friends_requests", req.body._id);
   await findUserAndModify(req.body._id, "incoming_friends_requests", req.user._id);
 
@@ -98,4 +123,4 @@ async function findUserAndModify(userId, array, findUserId) {
   let user = await User.findOne({_id: userId});
   user[array].push(findUserId);
   return await user.save();
-}
+} */
