@@ -84,6 +84,7 @@ exports.outcoming_friends_requests_get = async (req, res, next) => {
   let currentUser = await User.findOne({_id: req.user._id});
   await currentUser.populate('outcoming_friends_requests');
 
+  console.log(currentUser.outcoming_friends_requests)
   res.json(currentUser.outcoming_friends_requests);
 }
 
