@@ -80,20 +80,6 @@ exports.people_get = async (req, res, next) => {
   res.json(modifiedArray);
 }
 
-/* exports.outcoming_friends_requests_get = async (req, res, next) => {
-  let currentUser = await User.findById(req.user._id);
-  await currentUser.populate('outcoming_friends_requests');
-
-  res.json(currentUser.outcoming_friends_requests);
-}
-
-exports.incoming_friends_requests_get = async (req, res, next) => {
-  let currentUser = await User.findById(req.user._id);
-  await currentUser.populate('incoming_friends_requests');
-
-  res.json(currentUser);
-} */
-
 exports.outcoming_friends_requests_get = async (req, res, next) => {
   let array = await getPopulateListUsers(req.user._id, 'outcoming_friends_requests');
 
@@ -103,40 +89,16 @@ exports.outcoming_friends_requests_get = async (req, res, next) => {
 exports.incoming_friends_requests_get = async (req, res, next) => {
   let array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests');
 
-  console.log(array)
   res.json(array);
 }
-
-async function getPopulateListUsers (userId, array) {
-  const populatedUser = await User.findById(userId).populate(array);
-  return populatedUser[array];
-}
-
-/* exports.outcoming_friends_requests_get = async (req, res, next) => {
-  let array = await User.findById(req.user._id).populate('outcoming_friends_requests');
-
-  res.json(array);
-}
-
-exports.incoming_friends_requests_get = async (req, res, next) => {
-  let array = await User.findById(req.user._id).populate('incoming_friends_requests');;
-
-  res.json(array);
-} */
-
-/* async function getPopulateListUsers (userId, array) {
-  let currentUser = await User.findById(userId);
-  await currentUser.populate(array);
-  return currentUser;
-} */
 
 exports.incoming_friends_requests_put = async (req, res, next) => {
   let currentUser = await User.findById(req.user._id);
   let friendUser = await User.findById(req.body._id);
 
   if (!currentUser.friends.includes(req.body._id)) {
-    await deleteAndAddFriend(currentUser, "outcoming_friends_requests", req.body._id);
-    await deleteAndAddFriend(friendUser, "incoming_friends_requests", req.user._id);
+    await deleteAndAddFriend(currentUser, "incoming_friends_requests", req.body._id);
+    await deleteAndAddFriend(friendUser, "outcoming_friends_requests", req.user._id);
   } else {
     currentUser = null;
   }
@@ -168,4 +130,9 @@ async function deleteAndAddFriend (currentUser, friendId, nameArray) {
 async function addUserToArray (user, array, findUserId) {
   user[array].push(findUserId);
   user.save();
+}
+
+async function getPopulateListUsers (userId, array) {
+  const populatedUser = await User.findById(userId).populate(array);
+  return populatedUser[array];
 }
