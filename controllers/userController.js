@@ -108,7 +108,7 @@ exports.incoming_friends_requests_get = async (req, res, next) => {
 }
 
 async function getPopulateListUsers (userId, array) {
-  return await User.findById(userId).populate(array);
+  return await (User.findById(userId)).populate(array);
 }
 
 /* exports.outcoming_friends_requests_get = async (req, res, next) => {
