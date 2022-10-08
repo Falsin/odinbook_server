@@ -121,7 +121,7 @@ exports.friend_put = async (req, res, next) => {
 }
 
 async function deleteAndAddFriend (currentUser, nameArray, friendId) {
-  const id = currentUser[nameArray].indexOf(req.body._id);
+  const id = currentUser[nameArray].indexOf(friendId);
   currentUser[nameArray].splice(id, 1);
 
   addUserToArray(currentUser, "friends", friendId);
