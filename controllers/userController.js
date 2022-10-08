@@ -103,6 +103,7 @@ exports.outcoming_friends_requests_get = async (req, res, next) => {
 exports.incoming_friends_requests_get = async (req, res, next) => {
   let array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests')
 
+  console.log(array)
   res.json(array);
 }
 
