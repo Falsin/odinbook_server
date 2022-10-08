@@ -92,6 +92,13 @@ exports.incoming_friends_requests_get = async (req, res, next) => {
   res.json(array);
 }
 
+exports.friend_list_get = async (req, res, next) => {
+  let array = await getPopulateListUsers(req.user._id, 'friends');
+
+  res.json(array);
+}
+
+
 exports.incoming_friends_requests_put = async (req, res, next) => {
   let currentUser = await User.findById(req.user._id);
   let friendUser = await User.findById(req.body._id);

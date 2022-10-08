@@ -16,7 +16,6 @@ router.post("/",
 )
 
 router.get("/", (req, res, next) => {
-  //console.log(req.user)
   res.json(req.user ? createUserObject(req.user) : null)
 });
 
@@ -41,9 +40,11 @@ router.get("/people", userController.people_get);
 
 router.get("/outcoming_friends_requests", userController.outcoming_friends_requests_get);
 
-router.put("/incoming_friends_requests", userController.incoming_friends_requests_put);
-
 router.get("/incoming_friends_requests", userController.incoming_friends_requests_get);
+
+router.get("/friends", userController.friend_list_get)
+
+router.put("/incoming_friends_requests", userController.incoming_friends_requests_put);
 
 router.put("/friend", userController.friend_put);
 
