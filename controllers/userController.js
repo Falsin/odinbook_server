@@ -95,20 +95,21 @@ exports.incoming_friends_requests_get = async (req, res, next) => {
 } */
 
 exports.outcoming_friends_requests_get = async (req, res, next) => {
-  let array = await getPopulateListUsers(req.user._id, 'outcoming_friends_requests')
+  let array = await getPopulateListUsers(req.user._id, 'outcoming_friends_requests');
 
   res.json(array);
 }
 
 exports.incoming_friends_requests_get = async (req, res, next) => {
-  let array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests')
+  let array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests');
 
   console.log(array)
   res.json(array);
 }
 
 async function getPopulateListUsers (userId, array) {
-  return await (User.findById(userId)).populate(array);
+  const populatedUser = await User.findById(userId).populate(array);
+  return populatedUser[array];
 }
 
 /* exports.outcoming_friends_requests_get = async (req, res, next) => {
