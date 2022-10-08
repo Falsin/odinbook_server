@@ -41,7 +41,7 @@ router.get("/people", userController.people_get);
 
 router.get("/outcoming_friends_requests", userController.outcoming_friends_requests_get)
 
-router.put("/incoming_friends_requests_put", userController.incoming_friends_requests_put)
+router.put("/incoming_friends_requests", userController.incoming_friends_requests_put)
 
 router.put("/friend", userController.friend_put);
 
