@@ -80,12 +80,53 @@ exports.people_get = async (req, res, next) => {
   res.json(modifiedArray);
 }
 
-exports.outcoming_friends_requests_get = async (req, res, next) => {
-  let currentUser = await User.findOne({_id: req.user._id});
+/* exports.outcoming_friends_requests_get = async (req, res, next) => {
+  let currentUser = await User.findById(req.user._id);
   await currentUser.populate('outcoming_friends_requests');
 
   res.json(currentUser.outcoming_friends_requests);
 }
+
+exports.incoming_friends_requests_get = async (req, res, next) => {
+  let currentUser = await User.findById(req.user._id);
+  await currentUser.populate('incoming_friends_requests');
+
+  res.json(currentUser);
+} */
+
+exports.outcoming_friends_requests_get = async (req, res, next) => {
+  let array = await getPopulateListUsers(req.user._id, 'outcoming_friends_requests')
+
+  res.json(array);
+}
+
+exports.incoming_friends_requests_get = async (req, res, next) => {
+  let array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests')
+
+  res.json(array);
+}
+
+async function getPopulateListUsers (userId, array) {
+  return await User.findById(userId).populate(array);
+}
+
+/* exports.outcoming_friends_requests_get = async (req, res, next) => {
+  let array = await User.findById(req.user._id).populate('outcoming_friends_requests');
+
+  res.json(array);
+}
+
+exports.incoming_friends_requests_get = async (req, res, next) => {
+  let array = await User.findById(req.user._id).populate('incoming_friends_requests');;
+
+  res.json(array);
+} */
+
+/* async function getPopulateListUsers (userId, array) {
+  let currentUser = await User.findById(userId);
+  await currentUser.populate(array);
+  return currentUser;
+} */
 
 exports.incoming_friends_requests_put = async (req, res, next) => {
   let currentUser = await User.findById(req.user._id);
