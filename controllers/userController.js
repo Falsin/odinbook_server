@@ -160,18 +160,21 @@ exports.friend_delete = async (req, res, next) => {
 async function deleteAndAddUser (arrayForDelete, arrayForAdd, friendId) {
   arrayForDelete.splice(arrayForDelete.indexOf(friendId), 1);
 
+  console.log('first1111')
+  console.log(this)
   addUserToArray.call(this, arrayForAdd, friendId);
 }
 
 async function deleteAndAddFriend (nameArray, friendId) {
   const id = this[nameArray].indexOf(friendId);
   this[nameArray].splice(id, 1);
-  console.log(this)
 
   addUserToArray.call(this, "friends", friendId);
 }
 
 async function addUserToArray (nameArray, friendId) {
+  console.log('second22222')
+  console.log(this)
   this[nameArray].push(friendId);
   this.save();
 }
