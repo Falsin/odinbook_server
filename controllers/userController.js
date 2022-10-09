@@ -94,6 +94,7 @@ exports.incoming_friends_requests_get = async (req, res, next) => {
 
 exports.friend_list_get = async (req, res, next) => {
   let array = await getPopulateListUsers(req.user._id, 'friends');
+  //let array = User.findById(req.user._id).getPopulateArray(friends)
 
   res.json(array);
 }
@@ -104,8 +105,11 @@ exports.incoming_friends_requests_put = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (!currentUser.friends.includes(req.body._id)) {
+    await deleteAndAddFriend.call(currentUser, "incoming_friends_requests", req.body._id);
+    await deleteAndAddFriend.call(friendUser, "outcoming_friends_requests", req.user._id);
+    /* 
     await deleteAndAddFriend(currentUser, "incoming_friends_requests", req.body._id);
-    await deleteAndAddFriend(friendUser, "outcoming_friends_requests", req.user._id);
+    await deleteAndAddFriend(friendUser, "outcoming_friends_requests", req.user._id); */
   } else {
     currentUser = null;
   }
@@ -127,7 +131,24 @@ exports.friend_put = async (req, res, next) => {
   res.json(currentUser);
 }
 
-async function deleteAndAddFriend (currentUser, nameArray, friendId) {
+async function deleteAndAddFriend (nameArray, friendId) {
+  const id = this[nameArray].indexOf(friendId);
+  this[nameArray].splice(id, 1);
+
+  addUserToArray.call(this, "friends", friendId);
+}
+
+async function addUserToArray (array, friendId) {
+  this[array].push(friendId);
+  this.save();
+}
+
+async function getPopulateListUsers (userId, array) {
+  const populatedUser = await User.findById(userId).populate(array);
+  return populatedUser[array];
+}
+
+/* async function deleteAndAddFriend (currentUser, nameArray, friendId) {
   const id = currentUser[nameArray].indexOf(friendId);
   currentUser[nameArray].splice(id, 1);
 
@@ -142,4 +163,4 @@ async function addUserToArray (user, array, findUserId) {
 async function getPopulateListUsers (userId, array) {
   const populatedUser = await User.findById(userId).populate(array);
   return populatedUser[array];
-}
+} */
