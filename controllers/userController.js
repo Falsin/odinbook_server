@@ -136,8 +136,13 @@ exports.friend_delete = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (currentUser.friends.includes(req.body._id)) {
-    await deleteAndAddUser.call(currentUser, "incoming_friends_requests", req.body._id);
-    await deleteAndAddUser.call(friendUser, "outcoming_friends_requests", req.body._id);
+    await deleteUser.call(currentUser, "friend", req.body._id);
+    await addUserToArray.call(currentUser, "incoming_friends_requests", req.body._id);
+
+    await deleteUser.call(friendUser, "friend", req.body._id);
+    await addUserToArray.call(friendUser, "incoming_friends_requests", req.body._id);
+    /* await deleteAndAddUser.call(currentUser, "outcoming_friends_requests", req.body._id);
+    await deleteAndAddUser.call(friendUser, "outcoming_friends_requests", req.body._id); */
   } else {
     currentUser = null;
   }
@@ -162,26 +167,14 @@ async function getPopulateListUsers (userId, array) {
   return populatedUser[array];
 }
 
-async function deleteAndAddUser (nameArray, friendId) {
+function deleteUser (nameArray, friendId) {
+  const id = this[nameArray].indexOf(friendId);
+  this[nameArray].splice(id, 1);
+}
+
+/* async function deleteAndAddUser (nameArray, friendId) {
   const id = this.friends.indexOf(friendId);
   this.friends.splice(id, 1);
 
   addUserToArray.call(this, nameArray, friendId);
-}
-
-/* async function deleteAndAddFriend (currentUser, nameArray, friendId) {
-  const id = currentUser[nameArray].indexOf(friendId);
-  currentUser[nameArray].splice(id, 1);
-
-  addUserToArray(currentUser, "friends", friendId);
-}
-
-async function addUserToArray (user, array, findUserId) {
-  user[array].push(findUserId);
-  user.save();
-}
-
-async function getPopulateListUsers (userId, array) {
-  const populatedUser = await User.findById(userId).populate(array);
-  return populatedUser[array];
 } */
