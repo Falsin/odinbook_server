@@ -159,8 +159,9 @@ exports.friend_delete = async (req, res, next) => {
 
 async function deleteAndAddUser (arrayForDelete, arrayForAdd, friendId) {
   arrayForDelete.splice(arrayForDelete.indexOf(friendId), 1);
+  arrayForAdd.push(friendId);
 
-  addUserToArrayTest.call(this, arrayForAdd, friendId);
+  this.save();
 }
 
 async function deleteAndAddFriend (nameArray, friendId) {
@@ -172,11 +173,6 @@ async function deleteAndAddFriend (nameArray, friendId) {
 
 async function addUserToArray (nameArray, friendId) {
   this[nameArray].push(friendId);
-  this.save();
-}
-
-async function addUserToArrayTest (array, friendId) {
-  array.push(friendId);
   this.save();
 }
 
