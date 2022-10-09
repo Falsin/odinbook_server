@@ -136,8 +136,8 @@ exports.friend_delete = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (currentUser.friends.includes(req.body._id)) {
-    await deleteAndAddUser(currentUser, "incoming_friends_requests", req.body._id);
-    await deleteAndAddUser(friendUser, "outcoming_friends_requests", req.body._id);
+    await deleteAndAddUser.call(currentUser, "incoming_friends_requests", req.body._id);
+    await deleteAndAddUser.call(friendUser, "outcoming_friends_requests", req.body._id);
   } else {
     currentUser = null;
   }
@@ -163,7 +163,6 @@ async function getPopulateListUsers (userId, array) {
 }
 
 async function deleteAndAddUser (nameArray, friendId) {
-  console.log(this);
   const id = this.friends.indexOf(friendId);
   this.friends.splice(id, 1);
 
