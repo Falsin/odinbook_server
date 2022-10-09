@@ -136,13 +136,13 @@ exports.friend_delete = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (currentUser.friends.includes(req.body._id)) {
-    await deleteUser.call(currentUser, "friend", req.body._id);
+    await deleteUser.call(currentUser, "friends", req.body._id);
     await addUserToArray.call(currentUser, "incoming_friends_requests", req.body._id);
 
-    await deleteUser.call(friendUser, "friend", req.body._id);
-    await addUserToArray.call(friendUser, "incoming_friends_requests", req.body._id);
+    await deleteUser.call(friendUser, "friends", req.user._id);
+    await addUserToArray.call(friendUser, "incoming_friends_requests", req.user._id);
     /* await deleteAndAddUser.call(currentUser, "outcoming_friends_requests", req.body._id);
-    await deleteAndAddUser.call(friendUser, "outcoming_friends_requests", req.body._id); */
+    await deleteAndAddUser.call(friendUser, "outcoming_friends_requests", req.user._id); */
   } else {
     currentUser = null;
   }
