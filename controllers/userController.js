@@ -163,8 +163,9 @@ async function getPopulateListUsers (userId, array) {
 }
 
 async function deleteAndAddUser (nameArray, friendId) {
-  const id = this[friends].indexOf(friendId);
-  this[friends].splice(id, 1);
+  console.log(this);
+  const id = this.friends.indexOf(friendId);
+  this.friends.splice(id, 1);
 
   addUserToArray.call(this, nameArray, friendId);
 }
