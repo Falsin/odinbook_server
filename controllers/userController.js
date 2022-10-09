@@ -166,6 +166,7 @@ async function deleteAndAddUser (arrayForDelete, arrayForAdd, friendId) {
 async function deleteAndAddFriend (nameArray, friendId) {
   const id = this[nameArray].indexOf(friendId);
   this[nameArray].splice(id, 1);
+  console.log(this)
 
   addUserToArray.call(this, "friends", friendId);
 }
