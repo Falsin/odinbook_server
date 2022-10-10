@@ -18,16 +18,16 @@ const UserSchema = new Schema({
   facebookId: {type: String}
 })
 
-UserSchema.virtual("deleteAndAddUser").set(function (arrayForDelete, arrayForAdd, friendId) {
+UserSchema.methods.deleteAndAddUser = function (arrayForDelete, arrayForAdd, friendId) {
   arrayForDelete.splice(arrayForDelete.indexOf(friendId), 1);
   arrayForAdd.push(friendId);
 
   this.save();
-})
+}
 
-UserSchema.virtual("addUserToArray").set(function (array, friendId) {
+UserSchema.methods.addUserToArray = function (array, friendId) {
   array.push(friendId);
   this.save();
-})
+}
 
 module.exports = mongoose.model('User', UserSchema);
