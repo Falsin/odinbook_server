@@ -138,6 +138,22 @@ exports.friend_delete = async (req, res, next) => {
   res.json(currentUser);
 }
 
+exports.outcoming_friends_requests_delete = async (req, res, next) => {
+  let {currentUser, friendUser} = await findUsers(req);
+
+  if (currentUser.outcoming_friends_requests.includes(req.body._id)) {
+    currentUser.outcoming_friends_requests.splice(currentUser.outcoming_friends_requests.indexOf(req.body._id), 1);
+    friendUser.incoming_friends_requests.splice(friendUser.incoming_friends_requests.indexOf(req.user._id), 1);
+    
+    await currentUser.save();
+    await friendUser.save();
+  } else {
+    currentUser = null;
+  }
+
+  res.json(currentUser);
+}
+
 async function findUsers(req) {
   let currentUser = await User.findById(req.user._id);
   let friendUser = await User.findById(req.body._id);
