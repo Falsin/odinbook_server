@@ -128,8 +128,7 @@ exports.friend_put = async (req, res, next) => {
 }
 
 exports.friend_delete = async (req, res, next) => {
-  let currentUser = await User.findById(req.user._id);
-  let friendUser = await User.findById(req.body._id);
+  let {currentUser, friendUser} = test(req);
 
   if (currentUser.friends.includes(req.body._id)) {
     await currentUser.deleteAndAddUser(currentUser.friends, currentUser.incoming_friends_requests, req.body._id);
@@ -141,7 +140,17 @@ exports.friend_delete = async (req, res, next) => {
   res.json(currentUser);
 }
 
+async function test(req) {
+  let currentUser = await User.findById(req.user._id);
+  let friendUser = await User.findById(req.body._id);
+
+  return {currentUser , friendUser}
+}
+
+
 async function getPopulateListUsers (userId, nameArray) {
   const populatedUser = await User.findById(userId).populate(nameArray);
   return populatedUser[nameArray];
 }
+
+//было 147 строчек
