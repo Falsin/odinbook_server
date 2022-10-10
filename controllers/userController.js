@@ -128,7 +128,7 @@ exports.friend_put = async (req, res, next) => {
 }
 
 exports.friend_delete = async (req, res, next) => {
-  let {currentUser, friendUser} = test(req);
+  let {currentUser, friendUser} = await test(req);
 
   if (currentUser.friends.includes(req.body._id)) {
     await currentUser.deleteAndAddUser(currentUser.friends, currentUser.incoming_friends_requests, req.body._id);
