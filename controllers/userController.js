@@ -104,8 +104,8 @@ exports.incoming_friends_requests_put = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (!currentUser.friends.includes(req.body._id)) {
-    await deleteAndAddUser.call(currentUser, currentUser.incoming_friends_requests, currentUser.friends, req.body._id);
-    await deleteAndAddUser.call(friendUser, friendUser.outcoming_friends_requests, friendUser.friends, req.user._id);
+    await currentUser.deleteAndAddUser(currentUser.incoming_friends_requests, currentUser.friends, req.body._id);
+    await friendUser.deleteAndAddUser(friendUser.outcoming_friends_requests, friendUser.friends, req.user._id);
   } else {
     currentUser = null;
   }
