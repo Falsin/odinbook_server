@@ -118,8 +118,8 @@ exports.friend_put = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (!currentUser.outcoming_friends_requests.includes(req.body._id)) {
-    await addUserToArray(currentUser, "outcoming_friends_requests", req.body._id);
-    await addUserToArray(friendUser, "incoming_friends_requests", req.user._id);
+    await currentUser.addUserToArray(currentUser.outcoming_friends_requests, req.body._id);
+    await friendUser.addUserToArray(friendUser.incoming_friends_requests, req.user._id);
   } else {
     currentUser = null;
   }
@@ -132,25 +132,13 @@ exports.friend_delete = async (req, res, next) => {
   let friendUser = await User.findById(req.body._id);
 
   if (currentUser.friends.includes(req.body._id)) {
-    await deleteAndAddUser.call(currentUser, currentUser.friends, currentUser.incoming_friends_requests, req.body._id);
-    await deleteAndAddUser.call(friendUser, friendUser.friends, friendUser.outcoming_friends_requests, req.user._id);
+    await currentUser.deleteAndAddUser(currentUser.friends, currentUser.incoming_friends_requests, req.body._id);
+    await friendUser.deleteAndAddUser(friendUser.friends, friendUser.outcoming_friends_requests, req.user._id);
   } else {
     currentUser = null;
   }
 
   res.json(currentUser);
-}
-
-async function deleteAndAddUser (arrayForDelete, arrayForAdd, friendId) {
-  arrayForDelete.splice(arrayForDelete.indexOf(friendId), 1);
-  arrayForAdd.push(friendId);
-
-  this.save();
-}
-
-async function addUserToArray (nameArray, friendId) {
-  this[nameArray].push(friendId);
-  this.save();
 }
 
 async function getPopulateListUsers (userId, nameArray) {
