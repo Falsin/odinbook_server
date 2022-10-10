@@ -50,5 +50,7 @@ router.put("/friend", userController.friend_put);
 
 router.delete("/friend", userController.friend_delete);
 
+router.delete("/outcoming_friends_requests", userController.outcoming_friends_requests_delete);
+
 
 module.exports = router;
