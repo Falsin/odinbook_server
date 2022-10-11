@@ -164,6 +164,6 @@ async function getPopulateListUsers (user, nameArray) {
     const populatedUser = await User.findById(user._id).populate(nameArray);
     array = populatedUser[nameArray]
   } finally {
-    return res.json(array);
+    return array;
   }
 }
