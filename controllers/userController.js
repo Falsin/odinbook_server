@@ -87,7 +87,7 @@ exports.outcoming_friends_requests_get = async (req, res, next) => {
     array = await getPopulateListUsers(req.user._id, 'outcoming_friends_requests');
   } finally {
     console.log('hello1')
-    res.json(array);
+    return res.json(array);
   }
 }
 
@@ -98,7 +98,7 @@ exports.incoming_friends_requests_get = async (req, res, next) => {
     array = await getPopulateListUsers(req.user._id, 'incoming_friends_requests');
   } finally {
     console.log('hello2');
-    res.json(array);
+    return res.json(array);
   }
 }
 
@@ -109,7 +109,7 @@ exports.friend_list_get = async (req, res, next) => {
     array = await getPopulateListUsers(req.user._id, 'friends');
   } finally {
     console.log('hello3');
-    res.json(array);
+    return res.json(array);
   }
 }
 
