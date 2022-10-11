@@ -15,7 +15,8 @@ const UserSchema = new Schema({
   incoming_friends_requests: [{type: Schema.Types.ObjectId, ref: 'User'}],
   outcoming_friends_requests: [{type: Schema.Types.ObjectId, ref: 'User'}],
   birth_date: {type: Date, required: true},
-  facebookId: {type: String}
+  facebookId: {type: String},
+  posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
 })
 
 UserSchema.methods.deleteAndAddUser = function (arrayForDelete, arrayForAdd, friendId) {
