@@ -8,6 +8,7 @@ const passport = require("../passport/passport");
 const userController = require("../controllers/userController");
 const createUserObject = require("../public/javascripts/createUserObject");
 
+//users
 router.post("/", 
   upload.single("photo"), 
   userController.sign_up_post, 
@@ -51,6 +52,11 @@ router.put("/friend", userController.friend_put);
 router.delete("/friend", userController.friend_delete);
 
 router.delete("/outcoming_friends_requests", userController.outcoming_friends_requests_delete);
+
+//posts
+router.post("/post", 
+  upload.single("photo"),
+)
 
 
 module.exports = router;

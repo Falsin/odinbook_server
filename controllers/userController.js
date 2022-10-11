@@ -19,7 +19,6 @@ exports.sign_up_post = [
   body('birth_date', 'Password must not be empty.').trim().isLength({ min: 1 }).escape(),
 
   async (req, res, next) => {
-    console.log(req.file)
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
