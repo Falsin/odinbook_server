@@ -38,6 +38,41 @@ exports.posts_get = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.user._id);
 
+    /* let currentUserPosts = await Post.find({author: currentUser._id}).populate("author");
+    postArray.push(...currentUserPosts); */
+
+    /* Promise.all([Post.find({author: currentUser._id}), Promise.resolve(currentUser.friends), Promise.resolve(currentUser.outcoming_friends_requests)])
+      .then(values => values.forEach(elem => getFriendNews(postArray, ))) */
+
+    Promise.all([Post.find({author: currentUser._id}), Promise.resolve(currentUser.friends), Promise.resolve(currentUser.outcoming_friends_requests)])
+      .then(values => values.map(elem => getFriendNews(postArray, values)))
+
+
+    /* await getFriendNews(postArray, await Post.find({author: currentUser._id}));
+    await getFriendNews(postArray, currentUser.friends);
+    await getFriendNews(postArray, currentUser.outcoming_friends_requests); */
+
+    postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
+  } finally {
+    return res.json(postArray)
+  }
+}
+
+async function getFriendNews(sourceArray, array) {
+  const friendPosts = [];
+
+  for (const item of array) {
+    friendPosts.push(await Post.find({author: item}).populate("author"));
+  }
+  sourceArray.push(...friendPosts);
+}
+
+/* exports.posts_get = async (req, res, next) => {
+  let postArray = [];
+
+  try {
+    const currentUser = await User.findById(req.user._id);
+
     let currentUserPosts = await Post.find({author: currentUser._id}).populate("author");
     postArray.push(...currentUserPosts);
 
@@ -55,4 +90,5 @@ exports.posts_get = async (req, res, next) => {
   } finally {
     return res.json(postArray)
   }
-}
+} */
+//19 строчек
