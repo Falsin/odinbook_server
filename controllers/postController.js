@@ -53,6 +53,6 @@ exports.posts_get = async (req, res, next) => {
 
     postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
   } finally {
-    res.json(postArray)
+    return res.json(postArray)
   }
 }
