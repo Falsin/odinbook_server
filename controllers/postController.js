@@ -38,6 +38,31 @@ exports.posts_get = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.user._id);
 
+    const array = [currentUser._id, ...currentUser.friends, ...currentUser.outcoming_friends_requests];
+    await Promise.all(array.map(async (userId) => getFriendNews(postArray, userId)))
+
+    postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
+  } finally {
+    return res.json(postArray)
+  }
+}
+
+async function getFriendNews(sourceArray, userId) {
+  const friendPosts = [];
+  friendPosts.push(await Post.find({author: userId}).populate("author"));
+
+  /* for (const item of array) {
+    friendPosts.push(await Post.find({author: item}).populate("author"));
+  } */
+  sourceArray.push(...friendPosts);
+}
+
+/* exports.posts_get = async (req, res, next) => {
+  let postArray = [];
+
+  try {
+    const currentUser = await User.findById(req.user._id);
+
     const array = [[currentUser._id], currentUser.friends, currentUser.outcoming_friends_requests];
     await Promise.all(array.map(async (elem) => getFriendNews(postArray, elem)))
 
@@ -51,12 +76,10 @@ async function getFriendNews(sourceArray, array) {
   const friendPosts = [];
 
   for (const item of array) {
-    /* const testArray = await Post.find({author: item}).populate("author");
-    friendPosts.push(...testArray) */
     friendPosts.push(...await Post.find({author: item}).populate("author"));
   }
   sourceArray.push(...friendPosts);
-}
+} */
 
 /* exports.posts_get = async (req, res, next) => {
   let postArray = [];
