@@ -49,7 +49,7 @@ exports.posts_get = async (req, res, next) => {
 
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
-  friendPosts.push(await Post.find({author: userId}).populate("author"));
+  friendPosts.push(...await Post.find({author: userId}).populate("author"));
 
   /* for (const item of array) {
     friendPosts.push(await Post.find({author: item}).populate("author"));
