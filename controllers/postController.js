@@ -27,7 +27,7 @@ exports.post_post = [
       },
       date: Date.now(),
     }).save(async (err, post) => {
-      const currentUser = await Post.findById(req.user_id);
+      const currentUser = await Post.findById(req.user._id);
       let postArray = [];
 
       let currentUserPosts = await Post.find({author: currentUser._id});
