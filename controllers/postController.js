@@ -26,28 +26,30 @@ exports.post_post = [
         }
       },
       date: Date.now(),
-    }).save(async (err, post) => {
-      const currentUser = await User.findById(req.user._id);
-      let postArray = [];
-
-      let currentUserPosts = await Post.find({author: currentUser._id}).populate("author");
-      postArray.push(...currentUserPosts);
-
-      for (const item of currentUser.friends) {
-        const friendPosts = await Post.find({author: item}).populate("author");
-        postArray.push(...friendPosts);
-      }
-
-      for (const item of currentUser.outcoming_friends_requests) {
-        const outcomingFriendPosts = await Post.find({author: item}).populate("author");
-        postArray.push(...outcomingFriendPosts);
-      }
-
-      console.log(postArray[0].date.getTime())
-
-      postArray.sort((a, b) => a.date.getTime() - b.date.getTime())
-
-      res.json(postArray)
+    }).save((err, post) => {
+      next();
     })
   }
 ]
+
+exports.posts_get = async (req, res, next) => {
+  const currentUser = await User.findById(req.user._id);
+  let postArray = [];
+
+  let currentUserPosts = await Post.find({author: currentUser._id}).populate("author");
+  postArray.push(...currentUserPosts);
+
+  for (const item of currentUser.friends) {
+    const friendPosts = await Post.find({author: item}).populate("author");
+    postArray.push(...friendPosts);
+  }
+
+  for (const item of currentUser.outcoming_friends_requests) {
+    const outcomingFriendPosts = await Post.find({author: item}).populate("author");
+    postArray.push(...outcomingFriendPosts);
+  }
+
+  postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  res.json(postArray)
+}
