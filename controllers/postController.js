@@ -43,6 +43,8 @@ exports.post_post = [
         postArray.push(...outcomingFriendPosts);
       }
 
+      console.log(postArray[0].date.getTime())
+
       postArray.sort((a, b) => a.date.getTime() - b.date.getTime())
 
       res.json(postArray)
