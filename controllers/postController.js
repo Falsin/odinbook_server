@@ -53,7 +53,7 @@ async function getFriendNews(sourceArray, array) {
   for (const item of array) {
     /* const testArray = await Post.find({author: item}).populate("author");
     friendPosts.push(...testArray) */
-    friendPosts.push(await Post.find({author: item}).populate("author"));
+    friendPosts.push(...await Post.find({author: item}).populate("author"));
   }
   sourceArray.push(...friendPosts);
 }
