@@ -20,9 +20,9 @@ exports.post_post = [
       author: req.user._id,
       content: {
         text: req.body.text,
-        photo: {
-          bufferObject: req.file ? req.file.buffer : null, 
-          contentType: req.file ? req.file.mimetype : null,
+        photo: !req.file ? null : {
+          bufferObject: req.file.buffer, 
+          contentType: req.file.mimetype,
         }
       },
       date: Date.now(),
