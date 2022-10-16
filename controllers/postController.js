@@ -45,7 +45,7 @@ exports.posts_get = async (req, res, next) => {
       .then(values => values.forEach(elem => getFriendNews(postArray, ))) */
 
     Promise.all([Post.find({author: currentUser._id}), Promise.resolve(currentUser.friends), Promise.resolve(currentUser.outcoming_friends_requests)])
-      .then(values => values.map(elem => getFriendNews(postArray, values)))
+      .then(values => values.map(async (elem) => getFriendNews(postArray, elem)))
 
 
     /* await getFriendNews(postArray, await Post.find({author: currentUser._id}));
@@ -54,6 +54,7 @@ exports.posts_get = async (req, res, next) => {
 
     postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
   } finally {
+    console.log(postArray)
     return res.json(postArray)
   }
 }
