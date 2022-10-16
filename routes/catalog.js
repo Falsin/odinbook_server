@@ -6,6 +6,7 @@ require('dotenv').config();
 const passport = require("../passport/passport");
 
 const userController = require("../controllers/userController");
+const postController = require("../controllers/postController");
 const createUserObject = require("../public/javascripts/createUserObject");
 
 //users
@@ -56,7 +57,7 @@ router.delete("/outcoming_friends_requests", userController.outcoming_friends_re
 //posts
 router.post("/post", 
   upload.single("photo"),
-  userController.post_post
+  postController.post_post
 )
 
 
