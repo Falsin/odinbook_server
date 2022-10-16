@@ -22,8 +22,8 @@ exports.post_post = [
       content: {
         text: req.body.text,
         photo: {
-          bufferObject: req.file.buffer, 
-          contentType: req.file.mimetype,
+          bufferObject: req.file ? req.file.buffer : null, 
+          contentType: req.file ? req.file.mimetype : null,
         }
       },
       date: Date.now(),
