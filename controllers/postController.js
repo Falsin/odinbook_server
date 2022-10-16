@@ -31,16 +31,16 @@ exports.post_post = [
       let postArray = [];
 
       let currentUserPosts = await Post.find({author: currentUser._id});
-      postArray.push(currentUserPosts);
+      postArray.push(...currentUserPosts);
 
       for (const item of currentUser.friends) {
         const friendPosts = await Post.find({author: item});
-        postArray.push(friendPosts);
+        postArray.push(...friendPosts);
       }
 
       for (const item of currentUser.outcoming_friends_requests) {
         const outcomingFriendPosts = await Post.find({author: item});
-        postArray.push(outcomingFriendPosts);
+        postArray.push(...outcomingFriendPosts);
       }
 
       res.json(postArray)
