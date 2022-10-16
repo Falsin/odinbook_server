@@ -11,9 +11,24 @@ exports.post_post = [
   async (req, res, next) => {
     const errorArray = validationResult(req).array;
 
+    //return res.json(errorArray.length == 2 ? false : true);
+
     if (errorArray.length == 2) {
       return res.json(false)
     }
+    
+    new Post({
+      author: req.user._id,
+      content: {
+        text: req.body.text,
+        photo: {
+          bufferObject: req.file.buffer, 
+          contentType: req.file.mimetype,
+        }
+      },
+      date: Date.now(),
+    }).save((err, post) => {
+      res.json(post)
+    })
   }
-  //body("photo").trim().isLength({ min: 1 }).escape(),
 ]
