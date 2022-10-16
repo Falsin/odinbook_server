@@ -57,7 +57,12 @@ router.delete("/outcoming_friends_requests", userController.outcoming_friends_re
 //posts
 router.post("/post", 
   upload.single("photo"),
-  postController.post_post
+  postController.post_post,
+  postController.posts_get
+)
+
+router.get("/posts", 
+  postController.posts_get
 )
 
 
