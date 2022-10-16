@@ -63,7 +63,9 @@ async function getFriendNews(sourceArray, array) {
   const friendPosts = [];
 
   for (const item of array) {
-    friendPosts.push(await Post.find({author: item}).populate("author"));
+    const testArray = await Post.find({author: item}).populate("author");
+    friendPosts.push(...testArray)
+    //friendPosts.push(await Post.find({author: item}).populate("author"));
   }
   console.log('hello!')
   console.log(friendPosts)
