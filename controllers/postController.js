@@ -19,6 +19,8 @@ exports.post_post = [
       console.log('hello!')
       return res.json(false)
     }
+
+    console.log('wrong')
     
     new Post({
       author: req.user._id,
