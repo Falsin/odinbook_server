@@ -41,7 +41,7 @@ exports.posts_get = async (req, res, next) => {
     const array = [currentUser._id, ...currentUser.friends, ...currentUser.outcoming_friends_requests];
     await Promise.all(array.map(async (userId) => getFriendNews(postArray, userId)))
 
-    postArray.sort((a, b) => a.date.getTime() - b.date.getTime());
+    postArray.sort((a, b) => b.date.getTime() - a.date.getTime());
   } finally {
     return res.json(postArray)
   }
