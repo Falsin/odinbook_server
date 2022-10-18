@@ -13,6 +13,7 @@ exports.post_post = [
     const errorArray = validationResult(req).errors;
 
     console.log(errorArray);
+    console.log(errorArray.length);
 
     if (errorArray.length == 2) {
       return res.json(false)
