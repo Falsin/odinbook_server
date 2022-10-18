@@ -16,6 +16,7 @@ exports.post_post = [
     console.log(errorArray.length);
 
     if (errorArray.length == 2) {
+      console.log('hello!')
       return res.json(false)
     }
     
