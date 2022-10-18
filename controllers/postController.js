@@ -12,16 +12,10 @@ exports.post_post = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
-    console.log(errorArray);
-    console.log(errorArray.length);
-
     if (errorArray.length == 2) {
-      console.log('hello!')
       return res.json(false)
     }
-
-    console.log('wrong')
-    
+  
     new Post({
       author: req.user._id,
       content: {
