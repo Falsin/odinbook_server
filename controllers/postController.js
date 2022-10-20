@@ -47,8 +47,9 @@ exports.posts_get = async (req, res, next) => {
   }
 }
 
-exports.post_delete = (req, res, next) => {
-  Post.findByIdAndDelete(req.body._id);
+exports.post_delete = async (req, res, next) => {
+  const doc = await Post.findByIdAndDelete(req.body._id);
+  console.log(doc)
   next()
 }
 
