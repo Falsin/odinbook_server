@@ -47,6 +47,11 @@ exports.posts_get = async (req, res, next) => {
   }
 }
 
+exports.post_delete = (req, res, next) => {
+  Post.findByIdAndDelete(req.body._id);
+  next()
+}
+
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
   friendPosts.push(...await Post.find({author: userId}).populate("author"));

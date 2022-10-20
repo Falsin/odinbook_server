@@ -65,5 +65,10 @@ router.get("/posts",
   postController.posts_get
 )
 
+router.delete("/post", 
+  postController.post_delete,
+  postController.posts_get
+)
+
 
 module.exports = router;
