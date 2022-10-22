@@ -61,7 +61,7 @@ exports.post_put = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
-    console.log(req.body)
+    console.log(req.body.text)
 
     if (errorArray.length == 2) {
       return res.json(false)
