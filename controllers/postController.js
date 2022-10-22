@@ -61,7 +61,7 @@ exports.post_put = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
-    console.log(req.body)
+    console.log(req)
 
     if (errorArray.length == 2) {
       return res.json(false)
@@ -73,7 +73,7 @@ exports.post_put = [
       photo: req.body.photo,
       date: Date.now()
     }.save((err, doc) => res.json(doc))
-
+    //post.save()
   }
 ]
 
