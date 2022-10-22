@@ -72,7 +72,7 @@ exports.post_put = [
     //console.log(post);
     post.content = {
       text: req.body.text,
-      photo: req.body.photo
+      photo: JSON.parse(req.body.photo)
     }
     post.date = Date.now();
     post.save((err, doc) => {
