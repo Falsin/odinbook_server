@@ -68,11 +68,12 @@ exports.post_put = [
     }
   
     let post = await Post.findById(req.body.id);
+    console.log(post);
     post.content = {
       text: req.body.text,
-      photo: req.body.photo,
-      date: Date.now()
+      photo: req.body.photo
     }
+    post.date = Date.now();
     post.save(() => next())
   }
 ]
