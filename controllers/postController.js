@@ -68,7 +68,7 @@ exports.post_put = [
     }
   
     let post = await Post.findById(req.body.id);
-    console.log(post)
+    //console.log(post)
     //console.log(post);
     post.content = {
       text: req.body.text,
@@ -76,7 +76,7 @@ exports.post_put = [
     }
     post.date = Date.now();
     post.save((err, doc) => {
-      //console.log(doc.content.text)
+      console.log(doc)
       next()
     })
   }
