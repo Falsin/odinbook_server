@@ -72,7 +72,8 @@ router.delete("/post",
 
 router.put("/post",
   upload.single("photo"), 
-  postController.post_put
+  postController.post_put,
+  postController.posts_get
 )
 
 module.exports = router;
