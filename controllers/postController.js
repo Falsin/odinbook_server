@@ -67,7 +67,7 @@ exports.post_put = [
       return res.json(false)
     }
   
-    let post = Post.findById(req.body.id);
+    let post = await Post.findById(req.body.id);
     post.content = {
       text: req.body.text,
       photo: req.body.photo,
