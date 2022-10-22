@@ -76,7 +76,7 @@ exports.post_put = [
     }
     post.date = Date.now();
     post.save((err, doc) => {
-      console.log(doc)
+      console.log(err)
       next()
     })
   }
