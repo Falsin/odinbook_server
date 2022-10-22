@@ -70,5 +70,6 @@ router.delete("/post",
   postController.posts_get
 )
 
+router.put("/post", postController.post_put)
 
 module.exports = router;

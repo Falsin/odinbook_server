@@ -52,6 +52,30 @@ exports.post_delete = async (req, res, next) => {
   next()
 }
 
+exports.post_put = [
+  body("text").trim().isLength({ min: 1 }).escape(),
+  check("photo").custom((value, {req}) => {
+    return req.file ? true : false;
+  }),
+
+  async (req, res, next) => {
+    const errorArray = validationResult(req).errors;
+
+    if (errorArray.length == 2) {
+      return res.json(false)
+    }
+  
+    let post = Post.findById(req.body.id);
+    post.content = {
+      text: req.body.text,
+      photo: req.body.photo,
+      date: Date.now()
+    }
+    .save((err, doc) => res.json(doc))
+
+  }
+]
+
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
   friendPosts.push(...await Post.find({author: userId}).populate("author"));
