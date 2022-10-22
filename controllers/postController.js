@@ -72,8 +72,8 @@ exports.post_put = [
       text: req.body.text,
       photo: req.body.photo,
       date: Date.now()
-    }.save((err, doc) => res.json(doc))
-    //post.save()
+    }
+    await post.save()
   }
 ]
 
