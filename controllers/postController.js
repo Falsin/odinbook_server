@@ -81,7 +81,7 @@ exports.post_put = [
 
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
-  friendPosts.push(...await Post.find({author: userId}).populate("author"));
+  friendPosts.push(...await Post.find({author: userId}).populate(["author", "comments"]));
 
   sourceArray.push(...friendPosts);
 }
