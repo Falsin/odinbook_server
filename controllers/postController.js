@@ -61,15 +61,12 @@ exports.post_put = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
-    console.log(req)
-
     if (errorArray.length == 2) {
       return res.json(false)
     }
   
     let post = await Post.findById(req.body.id);
-    //console.log(post)
-    //console.log(post);
+
     post.content = {
       text: req.body.text,
       photo: !req.file ? null : {
@@ -78,17 +75,9 @@ exports.post_put = [
       }
     }
     post.date = Date.now();
-    post.save((err, doc) => {
-      console.log(err)
-      next()
-    })
+    post.save(() => next())
   }
 ]
-
-/* photo: !req.file ? null : {
-  bufferObject: req.file.buffer, 
-  contentType: req.file.mimetype,
-} */
 
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
