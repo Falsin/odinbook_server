@@ -72,7 +72,10 @@ exports.post_put = [
     //console.log(post);
     post.content = {
       text: req.body.text,
-      photo: !req.body.photo ? null : JSON.parse(req.body.photo)
+      photo: !req.file ? null : {
+        bufferObject: req.file.buffer, 
+        contentType: req.file.mimetype,
+      }
     }
     post.date = Date.now();
     post.save((err, doc) => {
@@ -81,6 +84,11 @@ exports.post_put = [
     })
   }
 ]
+
+/* photo: !req.file ? null : {
+  bufferObject: req.file.buffer, 
+  contentType: req.file.mimetype,
+} */
 
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
