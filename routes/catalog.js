@@ -79,6 +79,8 @@ router.put("/post",
 )
 
 //comments
-router.get("/comments", commentController.comments_get);
+//router.get("/comments", commentController.comments_get);
+
+router.post("/comment", commentController.comment_post);
 
 module.exports = router;
