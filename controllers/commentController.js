@@ -39,7 +39,7 @@ exports.comment_post = [
       //console.log(post);
 
       post.save((err, post) => {
-        console.log(post)
+        //console.log(post)
         res.json(comment)
       })
     }) 
