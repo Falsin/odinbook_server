@@ -43,7 +43,7 @@ exports.posts_get = async (req, res, next) => {
 
     postArray.sort((a, b) => b.date.getTime() - a.date.getTime());
   } finally {
-    //console.log(postArray)
+    console.log(postArray)
     return res.json(postArray)
   }
 }
@@ -83,7 +83,7 @@ exports.post_put = [
 async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
   //friendPosts.push(...await Post.find({author: userId}).populate(["author", "comments"]));
-  friendPosts.push(...await Post.find({author: userId}).populate("author").populate("comments"));
+  friendPosts.push(...await Post.find({author: userId}).populate("author"))//.populate("comments"));
   //console.log(friendPosts[friendPosts.length - 1].comments);
 
   sourceArray.push(...friendPosts);
