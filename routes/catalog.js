@@ -61,26 +61,29 @@ router.post("/post",
   upload.single("photo"),
   postController.post_post,
   postController.posts_get
-)
+);
 
 router.get("/posts", 
   postController.posts_get
-)
+);
 
 router.delete("/post", 
   postController.post_delete,
   postController.posts_get
-)
+);
 
 router.put("/post",
   upload.single("photo"), 
   postController.post_put,
   postController.posts_get
-)
+);
 
 //comments
 //router.get("/comments", commentController.comments_get);
 
-router.post("/comment", commentController.comment_post);
+router.post("/comment", 
+  upload.single("photo"),
+  commentController.comment_post
+);
 
 module.exports = router;
