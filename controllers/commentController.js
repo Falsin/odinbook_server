@@ -16,8 +16,6 @@ exports.comment_post = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
-    console.log(req)
-
     if (errorArray.length == 2) {
       return res.json(false)
     }
@@ -37,7 +35,9 @@ exports.comment_post = [
     .save(async (err, comment) => {
       let post = await Post.findById(req.body.postId);
       post.comments.push(comment._id);
-      
+
+      console.log(post);
+
       post.save(() => {
         res.json(comment)
       })
