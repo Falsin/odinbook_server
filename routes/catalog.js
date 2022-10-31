@@ -79,7 +79,7 @@ router.put("/post",
 );
 
 //comments
-//router.get("/comments", commentController.comments_get);
+router.get("/comments", commentController.comments_get);
 
 router.post("/comment", 
   upload.single("photo"),
