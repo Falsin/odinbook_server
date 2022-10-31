@@ -7,6 +7,8 @@ const passport = require("../passport/passport");
 
 const userController = require("../controllers/userController");
 const postController = require("../controllers/postController");
+const commentController = require("../controllers/commentController");
+
 const createUserObject = require("../public/javascripts/createUserObject");
 
 //users
@@ -75,5 +77,8 @@ router.put("/post",
   postController.post_put,
   postController.posts_get
 )
+
+//comments
+router.get("/comments", commentController.comments_get);
 
 module.exports = router;
