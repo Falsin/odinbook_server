@@ -36,7 +36,7 @@ exports.comment_post = [
       let post = await Post.findById(req.body.postId);
       post.comments.push(comment._id);
 
-      console.log(post);
+      //console.log(post);
 
       post.save(() => {
         res.json(comment)
