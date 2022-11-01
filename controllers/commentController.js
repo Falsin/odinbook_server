@@ -5,7 +5,7 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 
 exports.comments_get = async (req, res, next) => {
-  const comments = await Comment.find({post: req.params.postId});
+  const comments = await Comment.find({post: req.params.postId}).populate("author");
   comments.sort((a, b) => b.date.getTime() - a.date.getTime());
   
   res.json(comments)
