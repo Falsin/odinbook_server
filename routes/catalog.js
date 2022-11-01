@@ -78,10 +78,7 @@ router.put("/post",
   postController.posts_get
 );
 
-router.get("/post/:postId", postController.post_get)
-
 //comments
-//router.get("/comments", commentController.comments_get);
 
 router.get("/comments/:postId", commentController.comments_get);
 
