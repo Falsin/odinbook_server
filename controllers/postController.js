@@ -32,6 +32,25 @@ exports.post_post = [
   }
 ]
 
+exports.post_get = async (req, res, next) => {
+  const post = await Post.findById(req.params.postId).populate("author");
+  res.json(post);
+
+/*   let postArray = [];
+
+  try {
+    const currentUser = await User.findById(req.user._id);
+
+    const array = [currentUser._id, ...currentUser.friends, ...currentUser.outcoming_friends_requests];
+    await Promise.all(array.map(async (userId) => getFriendNews(postArray, userId)))
+
+    postArray.sort((a, b) => b.date.getTime() - a.date.getTime());
+  } finally {
+    console.log(postArray)
+    return res.json(postArray)
+  } */
+}
+//
 exports.posts_get = async (req, res, next) => {
   let postArray = [];
 
