@@ -31,12 +31,12 @@ exports.post_post = [
     })
   }
 ]
-
+//
 exports.post_get = async (req, res, next) => {
   const post = await Post.findById(req.params.postId).populate("author");
   res.json(post);
 
-/*   let postArray = [];
+  let postArray = [];
 
   try {
     const currentUser = await User.findById(req.user._id);
@@ -48,9 +48,9 @@ exports.post_get = async (req, res, next) => {
   } finally {
     console.log(postArray)
     return res.json(postArray)
-  } */
+  }
 }
-//
+
 exports.posts_get = async (req, res, next) => {
   let postArray = [];
 
@@ -58,7 +58,9 @@ exports.posts_get = async (req, res, next) => {
     const currentUser = await User.findById(req.user._id);
 
     const array = [currentUser._id, ...currentUser.friends, ...currentUser.outcoming_friends_requests];
-    await Promise.all(array.map(async (userId) => getFriendNews(postArray, userId)))
+    await Promise.all(array.map(async (userId) => {
+      postArray.push(...await Post.find({author: userId}).populate("author"));
+    }))
 
     postArray.sort((a, b) => b.date.getTime() - a.date.getTime());
   } finally {
@@ -99,10 +101,15 @@ exports.post_put = [
   }
 ]
 
-async function getFriendNews(sourceArray, userId) {
+/* async function getFriendNews(sourceArray, userId) {
   const friendPosts = [];
   friendPosts.push(...await Post.find({author: userId}).populate("author"));
   //friendPosts.push(...await Post.find({author: userId}).populate(["author", "comments"]));
 
   sourceArray.push(...friendPosts);
+} */
+
+async function getFriendNews(sourceArray, userId) {
+  sourceArray.push(...await Post.find({author: userId}).populate("author"));
+  //friendPosts.push(...await Post.find({author: userId}).populate(["author", "comments"]));
 }
