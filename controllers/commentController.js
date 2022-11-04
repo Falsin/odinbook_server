@@ -59,6 +59,8 @@ exports.comment_put = [
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
 
+    console.log(errorArray)
+
     if (errorArray.length == 2) {
       return res.json(false);
     }
