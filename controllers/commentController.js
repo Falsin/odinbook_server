@@ -51,6 +51,33 @@ exports.comment_post = [
   }
 ]
 
+exports.comment_put = [
+  body("text").trim().isLength({min: 1}).escape(),
+  check("photo").exists({checkFalsy: true}),
+  //check("photo").custom(({req}) => req.file ? true : false)
+
+  async (req, res, next) => {
+    const errorArray = validationResult(req).errors;
+
+    if (errorArray.length == 2) {
+      return res.json(false);
+    }
+
+    let comment = await Comment.findById(req.body.commentId);
+    comment.content = {
+      text: req.body.text,
+      photo: !req.file ? null : {
+        bufferObject: req.file.buffer,
+        contentType: req.file.mimetype,
+      } 
+    };
+    comment.date = Date.now();
+    save((err, comment) => {
+      res.json(comment);
+    })
+  }
+]
+
 /* async (req, res, next) => {
   const comment = new Comment({
 

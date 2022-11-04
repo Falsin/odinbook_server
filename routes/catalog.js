@@ -87,4 +87,9 @@ router.post("/comment",
   commentController.comment_post
 );
 
+router.put("/comment", 
+  upload.single("photo"),
+  commentController.comment_put
+)
+
 module.exports = router;
