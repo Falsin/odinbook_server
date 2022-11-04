@@ -74,7 +74,7 @@ exports.comment_put = [
       } 
     };
     comment.date = Date.now();
-    save((err, comment) => {
+    comment.save((err, comment) => {
       res.json(comment);
     })
   }
