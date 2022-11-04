@@ -53,8 +53,8 @@ exports.comment_post = [
 
 exports.comment_put = [
   body("text").trim().isLength({min: 1}).escape(),
-  check("photo").exists({checkFalsy: true}),
-  //check("photo").custom(({req}) => req.file ? true : false)
+  //check("photo").exists({checkFalsy: true}),
+  check("photo").custom(({req}) => req.file ? true : false),
 
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
