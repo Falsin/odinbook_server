@@ -80,7 +80,8 @@ router.put("/post",
 
 //comments
 
-router.get("/comments/:postId", commentController.comments_get);
+//router.get("/comments/:postId", commentController.comments_get);
+router.get("/post/:postId/comments", commentController.comments_get);
 
 router.post("/comment", 
   upload.single("photo"),
