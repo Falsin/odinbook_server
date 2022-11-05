@@ -54,19 +54,17 @@ exports.comment_post = [
 
 exports.comment_put = [
   body("text").trim().isLength({min: 1}).escape(),
-  //check("photo").exists({checkFalsy: true}),
   check("photo").custom((value, {req}) => req.file ? true : false),
 
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
-
-    console.log(req.file)
 
     if (errorArray.length == 2) {
       return res.json(false);
     }
 
     let comment = await Comment.findById(req.body.commentId);
+
     comment.content = {
       text: req.body.text,
       photo: !req.file ? null : {
@@ -75,8 +73,11 @@ exports.comment_put = [
       } 
     };
     comment.date = Date.now();
-    comment.save((err, comment) => {
-      res.json(comment);
+    comment.save(async (err, comment) => {
+      let comments = await Post.findById(comment.post).populate("comments").comments;
+      comments.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+      res.json(comments);
     })
   }
 ]
