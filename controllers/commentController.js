@@ -40,7 +40,7 @@ exports.comment_post = [
       post.comments.push(comment._id);
 
       const test = await Comment.findById(comment._id);
-      console.log(test)
+      //console.log(test)
 
       //console.log(post);
 
