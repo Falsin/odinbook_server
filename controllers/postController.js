@@ -61,7 +61,6 @@ exports.post_put = [
   }),
 
   async (req, res, next) => {
-    console.log(req.file)
     const errorArray = validationResult(req).errors;
 
     if (errorArray.length == 2) {
