@@ -74,7 +74,10 @@ exports.comment_put = [
     };
     comment.date = Date.now();
     comment.save(async (err, comment) => {
-      let comments = await Post.findById(comment.post).populate("comments").comments;
+      let post = await Post.findById(comment.post).populate("comments");
+      let comments = post.comments;
+      console.log(comments);
+      
       comments.sort((a, b) => b.date.getTime() - a.date.getTime());
 
       res.json(comments);
