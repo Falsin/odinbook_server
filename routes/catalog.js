@@ -85,7 +85,8 @@ router.get("/post/:postId/comments", commentController.comments_get);
 
 router.post("/comment", 
   upload.single("photo"),
-  commentController.comment_post
+  commentController.comment_post,
+  commentController.comments_get
 );
 
 router.put("/comment", 

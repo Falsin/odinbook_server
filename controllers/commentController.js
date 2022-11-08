@@ -17,7 +17,6 @@ exports.comment_post = [
 
   async (req, res, next) => {
     const errorArray = validationResult(req).errors;
-    console.log(req.file)
 
     if (errorArray.length == 2) {
       return res.json(false)
@@ -36,18 +35,16 @@ exports.comment_post = [
       date: Date.now(),
     })
     .save(async (err, comment) => {
-      let post = await Post.findById(req.body.postId);
+      req.params = {postId: comment.post};
+      next();
+      /* let post = await Post.findById(req.body.postId);
       post.comments.push(comment._id);
 
       const test = await Comment.findById(comment._id);
-      //console.log(test)
-
-      //console.log(post);
 
       post.save((err, post) => {
-        //console.log(post)
         res.json(comment)
-      })
+      }) */
     }) 
   }
 ]
@@ -76,18 +73,6 @@ exports.comment_put = [
     comment.save(async (err, comment) => {
       req.params = {postId: comment.post}
       next()
-      /* let comments = (await Post.findById(comment.post).populate("comments")).comments;
-      console.log(comments);
-      
-      comments.sort((a, b) => b.date.getTime() - a.date.getTime());
-
-      res.json(comments); */
     })
   }
 ]
-
-/* async (req, res, next) => {
-  const comment = new Comment({
-
-  })
-} */
