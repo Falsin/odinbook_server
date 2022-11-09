@@ -35,7 +35,13 @@ exports.comment_post = [
       date: Date.now(),
     })
     .save(async (err, comment) => {
+      let post = await Post.findById(comment.post);
+
+      post.comments.push(comment._id);
+      await post.save();
+
       req.params = {postId: comment.post};
+
       next();
     }) 
   }
