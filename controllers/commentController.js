@@ -37,14 +37,6 @@ exports.comment_post = [
     .save(async (err, comment) => {
       req.params = {postId: comment.post};
       next();
-      /* let post = await Post.findById(req.body.postId);
-      post.comments.push(comment._id);
-
-      const test = await Comment.findById(comment._id);
-
-      post.save((err, post) => {
-        res.json(comment)
-      }) */
     }) 
   }
 ]
@@ -76,3 +68,7 @@ exports.comment_put = [
     })
   }
 ]
+
+/* exports.comment_delete = async function(req, res, next) => {
+
+} */

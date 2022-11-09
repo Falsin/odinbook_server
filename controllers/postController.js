@@ -2,6 +2,7 @@ const { check, body, validationResult } = require('express-validator');
 
 const Post = require("../models/post");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 
 exports.post_post = [
   body("text").trim().isLength({ min: 1 }).escape(),
@@ -50,7 +51,11 @@ exports.posts_get = async (req, res, next) => {
 }
 
 exports.post_delete = async (req, res, next) => {
-  await Post.findByIdAndDelete(req.body._id);
+  await Post.findByIdAndDelete(req.body._id, (err, doc) => {
+    doc.comments.reduce(async (prevVal, curVal) => {
+      await Comment.findByIdAndDelete(curVal._id); 
+    })
+  });
   next()
 }
 
