@@ -57,7 +57,10 @@ exports.post_delete = async (req, res, next) => {
     })
   }); */
   await Post.findByIdAndDelete(req.body._id);
-  await Comment.deleteMany({post: req.body._id})
+  await Comment.deleteMany({post: req.body._id});
+
+  const test = await Comment.find({post: req.body._id});
+  console.log(test);
   next()
 }
 
