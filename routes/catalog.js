@@ -95,6 +95,6 @@ router.put("/comment",
   commentController.comments_get
 )
 
-//router.delete("/comment")
+router.delete("/comment", commentController.comment_delete)
 
 module.exports = router;
