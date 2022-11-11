@@ -76,10 +76,12 @@ exports.comment_put = [
 ]
 
 exports.comment_delete = async (req, res, next) => {
-  console.log(req.body)
   const comment = await Comment.findByIdAndDelete(req.body.commentId);
-  console.log(comment);
   const arrayComments = await Comment.find({post: comment.post});
+
+  let post = await Post.findById(comment.post);
+  post.splice(post.comments.findIndex(comment._id), 1)
+  await post.save()
 
   res.json(arrayComments);
 }
