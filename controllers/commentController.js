@@ -76,6 +76,7 @@ exports.comment_put = [
 ]
 
 exports.comment_delete = async (req, res, next) => {
+  console.log(req.body)
   const comment = await Comment.findByIdAndDelete(req.body.commentId);
   console.log(comment);
   const arrayComments = await Comment.find({post: comment.post});
