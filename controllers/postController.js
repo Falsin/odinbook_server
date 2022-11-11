@@ -51,16 +51,10 @@ exports.posts_get = async (req, res, next) => {
 }
 
 exports.post_delete = async (req, res, next) => {
-  /* await Post.findByIdAndDelete(req.body._id, (err, doc) => {
-    doc.comments.reduce(async (prevVal, curVal) => {
-      await Comment.findByIdAndDelete(curVal._id); 
-    })
-  }); */
   await Post.findByIdAndDelete(req.body._id);
   await Comment.deleteMany({post: req.body._id});
 
   const test = await Comment.find({post: req.body._id});
-  console.log(test);
   next()
 }
 
