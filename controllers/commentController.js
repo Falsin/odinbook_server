@@ -88,10 +88,11 @@ exports.comment_delete = async (req, res, next) => {
 
 exports.comment_put_like = async (req, res, next) => {
   let comment = await Comment.findById(req.params.commentId);
-  console.log(comment);
   comment.likes.push(req.user._id);
   await comment.save();
-  const populatedArray = await comment.populate("likes")
+  const populatedArray = await comment.populate("likes");
+
+  console.log(populatedArray)
 
   res.json(populatedArray.likes);
 }
