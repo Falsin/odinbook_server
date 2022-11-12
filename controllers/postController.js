@@ -85,7 +85,7 @@ exports.post_put = [
   }
 ]
 
-exports.post_put_like = async (req, rex, next) => {
+exports.post_put_like = async (req, res, next) => {
   let post = await Post.findById(req.params.postId);
   post.likes.push(req.user._id);
   await post.save();
