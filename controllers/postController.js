@@ -91,3 +91,10 @@ exports.post_put_like = async (req, res, next) => {
   await post.save();
   res.json(post.likes);
 }
+
+exports.post_delete_like = async (req, res, next) => {
+  let post = await Post.findById(req.params.postId);
+  post.likes.splice(post.likes.indexOf(req.user._id), 1);
+  await post.save();
+  res.json(post.likes);
+}

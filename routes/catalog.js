@@ -80,6 +80,8 @@ router.put("/post",
 
 router.put("/post/:postId/like", postController.post_put_like);
 
+router.delete("/post/:postId/like", postController.post_delete_like);
+
 //comments
 router.get("/post/:postId/comments", commentController.comments_get);
 
