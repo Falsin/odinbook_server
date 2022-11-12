@@ -90,14 +90,17 @@ exports.comment_put_like = async (req, res, next) => {
   let comment = await Comment.findById(req.params.commentId);
   comment.likes.push(req.user._id);
   await comment.save();
+  const populatedArray = await comment.populate("likes")
 
-  res.json(comment.likes);
+  res.json(populatedArray.likes);
 }
 
 exports.comment_delete_like = async (req, res, next) => {
   let comment = await Comment.findById(req.params.commentId);
   comment.likes.splice(comment.likes.indexOf(req.user._id), 1);
   await comment.save();
+  const populatedArray = await comment.populate("likes")
 
-  res.json(comment.likes);
+
+  res.json(populatedArray.likes);
 }
