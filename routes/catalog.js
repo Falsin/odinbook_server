@@ -97,6 +97,10 @@ router.put("/comment",
   commentController.comments_get
 )
 
-router.delete("/comment", commentController.comment_delete)
+router.delete("/comment", commentController.comment_delete);
+
+router.put("/comment/:commentId/like", commentController.comment_put_like);
+
+router.delete("/comment/:commentId/like", commentController.comment_delete_like);
 
 module.exports = router;
