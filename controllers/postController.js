@@ -84,3 +84,10 @@ exports.post_put = [
     post.save(() => next())
   }
 ]
+
+exports.post_put_like = async (req, rex, next) => {
+  let post = await Post.findById(req.params.postId);
+  post.likes.push(req.user._id);
+  await post.save();
+  res.json(post);
+}

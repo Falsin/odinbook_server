@@ -78,9 +78,9 @@ router.put("/post",
   postController.posts_get
 );
 
-//comments
+router.put("/post/:postId/like", postController.post_put_like);
 
-//router.get("/comments/:postId", commentController.comments_get);
+//comments
 router.get("/post/:postId/comments", commentController.comments_get);
 
 router.post("/comment", 
