@@ -68,11 +68,7 @@ exports.comment_put = [
       } 
     };
     comment.date = Date.now();
-    comment.save(async (err, comment) => {
-      return res.json(comment)
-      /* req.params = {postId: comment.post}
-      next() */
-    })
+    comment.save((err, comment) => res.json(comment))
   }
 ]
 
