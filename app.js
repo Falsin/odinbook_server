@@ -32,7 +32,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const sessionStore = MongoStore.create({
   mongoUrl: mongoDB,
-  dbName: "sessions"
+  collection: "sessions"
 })
 
 const whitelist = ["https://localhost:8080", "https://falsin.github.io", "https://odinbook-client.pages.dev"]
