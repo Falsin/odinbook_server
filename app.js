@@ -30,6 +30,11 @@ mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+const sessionStore = MongoStore.create({
+  mongoUrl: mongoDB,
+  dbName: "session"
+})
+
 const whitelist = ["https://localhost:8080", "https://falsin.github.io", "https://odinbook-client.pages.dev"]
 app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -52,7 +57,8 @@ app.use(session({
     sameSite: "none",
     secure: true,
   },
-  proxy: true
+  proxy: true,
+  store: sessionStore
 }));
 
 app.use(cookieParser());
@@ -76,14 +82,11 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log('fuck')
-  console.log(err)
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  //console.log(req)
   res.status(err.status || 500);
   res.json(err.message);
   //res.render('error');
